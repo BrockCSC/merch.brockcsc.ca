@@ -18,7 +18,7 @@ A modern, production-ready template for building full-stack React applications u
 
 ### Installation
 
-Install the dependencies:
+Install the dependenciess:
 
 ```bash
 npm install
