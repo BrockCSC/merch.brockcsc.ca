@@ -1,7 +1,7 @@
 //This file is still under construction aka WIP
 //author: Andres Coimbra Castedo
 //This file was based on: volunteer.brockcsc.ca/cloudfare/src/index.ts
-//Was helped by AI :)
+//
 
 import { processPayment } from "./payments";
 import { writeOrderToDB } from "./data";
@@ -9,7 +9,8 @@ import { sendConfirmationEmail } from "./mailer";
 
 const ALLOWED_ORIGINS = [
     "http://localhost:5173",
-    "https://yourstore.com"
+    "https://brockcsc.ca",
+    "https://volunteer.brockcsc.ca"
 ];
 
 export interface Env {
@@ -20,7 +21,7 @@ export interface Env {
 
 export default {
     async fetch(request: Request, env:Env): Promise<Response> {
-        
+
         //CORS preflight
         if(request.method == "OPTIONS"){
             return new Response(null, {
@@ -32,7 +33,7 @@ export default {
                 },
             });
         }
-        
+
         //POST only
         if(request.method != "POST"){
             return new Response(
@@ -56,7 +57,7 @@ export default {
             data = await request.json();
         }catch{
             return new Response(JSON.stringify({ success: false, message: "Invalid JSON" }),
-            { status: 400,}
+                { status: 400,}
             );
         }
 
@@ -64,12 +65,15 @@ export default {
             //process payment
             const payment = await processPayment(data, env);
 
-            //write order to DB
-            const order = await writeOrderToDB({ ...data, payment}, env);
-
-            //send confirmation email
-            await sendConfirmationEmail(order, env);
-
+            payment.then((approved: boolean) => {
+                if(approved){
+                    //write order to DB
+                    const order = await writeOrderToDB({ ...data, payment}, env);
+                    //send confirmation email
+                    await sendConfirmationEmail(order, env);
+                }}
+            );
+            
             return new Response(JSON.stringify({
                 success: true,
                 orderId: order.orderId,
@@ -86,5 +90,5 @@ export default {
             );
         }
     }
- 
+
 };
