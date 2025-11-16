@@ -15,8 +15,10 @@ export enum Size {
 export interface Order {
   name: string;
   studentId: number;
+  email: string;
   color: Color;
   size: Size;
+  paymentId: string;
   createdAt: Date;
 }
 

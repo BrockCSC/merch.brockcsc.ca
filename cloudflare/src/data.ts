@@ -5,8 +5,10 @@ import { Color, Size, type Order, type Env } from "./types";
 interface OrderInput {
   name: string;
   studentId: number;
+  email:string;
   color: Color;
   size: Size;
+  paymentId: string;
 }
 
 /**
@@ -40,10 +42,13 @@ export async function writeOrderToDB(
     const documentToInsert: Order = {
       name: orderDetails.name,
       studentId: orderDetails.studentId,
+      email: orderDetails.email, 
       color: orderDetails.color,
       size: orderDetails.size,
+      paymentId: orderDetails.paymentId,
       createdAt: new Date(),
     };
+
 
     const result = await collection.insertOne(documentToInsert);
     
