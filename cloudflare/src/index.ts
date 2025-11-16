@@ -86,7 +86,7 @@ export default {
                 success: false,
                 message: err.message || "Something went wrong"
             }),
-                { satus: 500, headers: { "Content-Type": "application/json" } }
+                { status: 500, headers: { "Content-Type": "application/json" } }
             );
         }
     }

@@ -1,0 +1,10 @@
+name = "merch-backend"
+main = "src/index.ts"
+compatibility_date = "2025-11-15"
+compatibility_flags = ["nodejs_compat"] 
+
+
+# This tells wrangler to look for database name variables.
+[vars]
+MONGODB_DB = "merch"
+MONGODB_COLLECTION = "orders"
