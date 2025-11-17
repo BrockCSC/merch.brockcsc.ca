@@ -9,6 +9,7 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import Nav from "./components/Nav/Nav";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -33,7 +34,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
+        <div className="mx-auto w-[75%] max-w-[1280px]">
+          <Nav />
+          {children}
+        </div>
         <ScrollRestoration />
         <Scripts />
       </body>
