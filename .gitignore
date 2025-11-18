@@ -6,3 +6,5 @@
 /.react-router/
 /build/
 .dev.vars
+
+/cloudflare/node_modules
