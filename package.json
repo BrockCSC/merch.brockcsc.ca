@@ -12,6 +12,7 @@
     "@react-router/node": "^7.9.2",
     "@react-router/serve": "^7.9.2",
     "isbot": "^5.1.31",
+    "mailersend": "^2.6.0",
     "mongodb": "^7.0.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
@@ -28,5 +29,8 @@
     "vite": "^7.1.7",
     "vite-tsconfig-paths": "^5.1.4",
     "wrangler": "^4.47.0"
+  },
+  "overrides": {
+    "glob": "^11.0.4"
   }
 }

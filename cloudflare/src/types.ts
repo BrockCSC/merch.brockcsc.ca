@@ -1,5 +1,4 @@
 export enum Color {
-  Red = "RED",
   Black = "BLACK",
   White = "WHITE",
 }
@@ -9,7 +8,6 @@ export enum Size {
   M = "M",
   L = "L",
   XL = "XL",
-  XXL = "XXL",
 }
 
 export interface Order {
