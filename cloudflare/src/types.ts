@@ -30,4 +30,7 @@ export interface Env {
   // Variables
   MONGODB_DB?: string;
   MONGODB_COLLECTION?: string;
+  SENDER_EMAIL: string;    
+  SENDER_NAME: string;   
+  TEMPLATE_ID: string;    
 }

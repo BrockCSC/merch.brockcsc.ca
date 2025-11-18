@@ -1,12 +1,7 @@
 // author: Jay
-
 import { MailerSend, EmailParams, Sender, Recipient } from "mailersend";
 import { type Order, type Env } from "./types";
 
-// Create a new user for the brockcsc domain
-const SENDER_EMAIL = "";  // user email
-const SENDER_NAME = " ";  // user name
-const TEMPLATE_ID = ""; // Create a new template to send to customers
 
 export async function sendConfirmationEmail(
   order: Order,
@@ -21,7 +16,7 @@ export async function sendConfirmationEmail(
     apiKey: env.MAIL_API_KEY,
   });
 
-  const sentFrom = new Sender(SENDER_EMAIL, SENDER_NAME);
+  const sentFrom = new Sender(env.SENDER_EMAIL, env.SENDER_NAME);
   const recipients = [new Recipient(order.email, order.name)];
 
 
@@ -41,12 +36,12 @@ export async function sendConfirmationEmail(
   const emailParams = new EmailParams()
     .setFrom(sentFrom)
     .setTo(recipients)
-    .setTemplateId(TEMPLATE_ID)
+    .setTemplateId(env.TEMPLATE_ID)
     .setPersonalization(personalization);
 
   try {
     await mailerSend.email.send(emailParams);
-    console.log(Confirmation email sent successfully to ${order.email});
+    console.log(`Confirmation email sent successfully to ${order.email}`);
     return true;
   } catch (error) {
     console.error("Failed to send confirmation email:", error);
