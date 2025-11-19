@@ -62,13 +62,18 @@ export default function Nav() {
     <header className="sticky inset-x-0 top-0 z-20">
       <div
         className={classNames(
-          "relative h-[86px] border-b-2 border-transparent transition-all duration-300 ease-in-out",
+          "relative h-[86px] transition-all duration-300 ease-in-out",
           isWhite ? "bg-white" : "bg-transparent",
-          isScrolled &&
-            "border-[#aa3b3b] shadow-[0px_7px_17px_-10px_rgba(0,0,0,0.4)]"
+          isScrolled && "shadow-[0px_7px_17px_-10px_rgba(0,0,0,0.4)]"
         )}
       >
-        <div className="hidden h-full w-full items-center justify-between lg:flex">
+        <div
+          className={classNames(
+            "absolute bottom-0 left-0 h-[2px] w-full bg-[#9d2235] transition-opacity duration-300 ease-in-out",
+            isScrolled ? "opacity-100" : "opacity-0"
+          )}
+        />
+        <div className="hidden h-full w-[75%] max-w-[1280px] mx-auto items-center justify-between lg:flex">
           <div className="flex h-full items-center">
             <a href="https://brockcsc.ca">
               <img
