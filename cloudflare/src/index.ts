@@ -6,6 +6,7 @@
 import { processPayment } from "./payments";
 import { writeOrderToDB } from "./data";
 import { sendConfirmationEmail } from "./mailer";
+import {type Env} from "./types"
 
 const ALLOWED_ORIGINS = [
     "http://localhost:5173",
@@ -13,11 +14,14 @@ const ALLOWED_ORIGINS = [
     "https://volunteer.brockcsc.ca"
 ];
 
+/*
 export interface Env {
     PAYMENT_API_KEY: string;
     DB_URL: string;
     MAIL_API_KEY: string;
 }
+*/
+
 
 export default {
     async fetch(request: Request, env:Env): Promise<Response> {
@@ -79,7 +83,7 @@ export default {
                 orderId: order.orderId,
                 message: "Order complete"
             }),
-                { status: 200, heaeders: { "Content-Type": "application/json" } }
+                { status: 200, headers: { "Content-Type": "application/json" } }
             );
         }catch (err: any){
             return new Response(JSON.stringify({

@@ -16,7 +16,8 @@
     "mongodb": "^7.0.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "react-router": "^7.9.2"
+    "react-router": "^7.9.2",
+    "stripe": "^19.3.1"
   },
   "devDependencies": {
     "@react-router/dev": "^7.9.2",
