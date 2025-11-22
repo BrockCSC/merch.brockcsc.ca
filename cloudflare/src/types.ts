@@ -20,17 +20,16 @@ export interface Order {
   createdAt: Date;
 }
 
-
 export interface Env {
   // Secrets
   PAYMENT_API_KEY: string;
-  DB_URL: string; 
+  DB_URL: string;
   MAIL_API_KEY: string;
 
   // Variables
   MONGODB_DB?: string;
   MONGODB_COLLECTION?: string;
-  SENDER_EMAIL: string;    
-  SENDER_NAME: string;   
-  TEMPLATE_ID: string;    
+  SENDER_EMAIL: string;
+  SENDER_NAME: string;
+  TEMPLATE_ID: string;
 }

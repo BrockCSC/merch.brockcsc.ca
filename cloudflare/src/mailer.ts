@@ -2,7 +2,6 @@
 import { MailerSend, EmailParams, Sender, Recipient } from "mailersend";
 import { type Order, type Env } from "./types";
 
-
 export async function sendConfirmationEmail(
   order: Order,
   env: Env
@@ -18,7 +17,6 @@ export async function sendConfirmationEmail(
 
   const sentFrom = new Sender(env.SENDER_EMAIL, env.SENDER_NAME);
   const recipients = [new Recipient(order.email, order.name)];
-
 
   // These keys (e.g., 'name', 'student_id') must match the variables in your template.
   const personalization = [
