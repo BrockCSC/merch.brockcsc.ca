@@ -41,7 +41,7 @@ export default {
         //POST only
         if(request.method != "POST"){
             return new Response(
-                JSON.stringify({ success: false, massage: "Method Not Allowed" }),
+                JSON.stringify({ success: false, message: "Method Not Allowed" }),
                 { status: 405 }
             );
         }
