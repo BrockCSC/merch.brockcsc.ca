@@ -2,7 +2,7 @@ import type { Route } from "./+types/success";
 import { Link } from "react-router";
 
 
-export function meta({}: Route.MetaArgs) {
+export function meta({ }: Route.MetaArgs) {
   return [
     { title: "Order Success - Merch Page" },
     { name: "description", content: "Your order has been placed successfully" },
@@ -15,7 +15,7 @@ export default function Success({
   email = "brockcsc@gmail.com",
 }) {
   return (
-    <main className="min-h-screen bg-neutral-100 flex items-center justify-center px-4">
+    <main className="min-h-screen bg-neutral-100 flex items-center justify-center px-4 w-[100vw] ml-[calc(50%-50vw)] mr-[calc(50%-50vw)]">
       <section className="w-full max-w-2xl rounded-lg bg-white border border-neutral-200 shadow-sm py-10 px-6">
         <div className="flex flex-col items-center">
 
