@@ -1,7 +1,6 @@
 //Author: Ayaan
-import { MongoClient, ServerApiVersion } from 'mongodb';
-
 import { Color, Size, type Order, type Env } from './types';
+
 interface OrderInput {
   name: string;
   studentId: number;
@@ -12,57 +11,54 @@ interface OrderInput {
 }
 
 /**
- * Saves order information to the MongoDB Atlas database.
+ * Saves order information to the D1 database.
  * @param orderDetails - The order data received from the request body.
- * @param env - The environment variables containing secrets (DB_URL) and configuration.
+ * @param env - The environment variables containing the D1 database.
  * @returns A promise that resolves to the newly created order document from the database.
  */
 export async function writeOrderToDB(
   orderDetails: OrderInput,
   env: Env
-): Promise<Order & { _id: any }> {
-  if (!env.DB_URL) {
-    throw new Error('DB_URL environment variable is not set.');
-  }
-
-  const client = new MongoClient(env.DB_URL, {
-    serverApi: {
-      version: ServerApiVersion.v1,
-      strict: true,
-      deprecationErrors: true,
-    },
-  });
+): Promise<Order> {
+  const documentToInsert: Omit<Order, 'id'> = {
+    name: orderDetails.name,
+    studentId: orderDetails.studentId,
+    email: orderDetails.email,
+    color: orderDetails.color,
+    size: orderDetails.size,
+    paymentId: orderDetails.paymentId,
+    createdAt: new Date().toISOString(),
+  };
 
   try {
-    await client.connect();
-    const db = client.db(env.MONGODB_DB || 'merch_orders');
-    const collection = db.collection<Order>(env.MONGODB_COLLECTION || 'orders');
+    const stmt = env.DB.prepare(`
+      INSERT INTO orders (name, studentId, email, color, size, paymentId, createdAt)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
+    `).bind(
+      documentToInsert.name,
+      documentToInsert.studentId,
+      documentToInsert.email,
+      documentToInsert.color,
+      documentToInsert.size,
+      documentToInsert.paymentId,
+      documentToInsert.createdAt
+    );
 
-    const documentToInsert: Order = {
-      name: orderDetails.name,
-      studentId: orderDetails.studentId,
-      email: orderDetails.email,
-      color: orderDetails.color,
-      size: orderDetails.size,
-      paymentId: orderDetails.paymentId,
-      createdAt: new Date(),
-    };
+    const result = await stmt.run();
 
-    const result = await collection.insertOne(documentToInsert);
+    const insertedId = result.meta.last_row_id;
 
     // tempory console message for dev
     console.log(
-      `Order successfully written to DB with id: ${result.insertedId}`
+      `Order successfully written to DB with id: ${insertedId}`
     );
 
     return {
+      id: insertedId,
       ...documentToInsert,
-      _id: result.insertedId,
     };
   } catch (error) {
-    console.error('Failed to write order to MongoDB', error);
+    console.error('Failed to write order to D1', error);
     throw new Error('Database write operation failed.');
-  } finally {
-    await client.close();
   }
 }

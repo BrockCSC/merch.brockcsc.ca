@@ -24,6 +24,7 @@
     "stripe": "^19.3.1"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20251121.0",
     "@react-router/dev": "^7.9.2",
     "@tailwindcss/vite": "^4.1.17",
     "@types/node": "^22",
