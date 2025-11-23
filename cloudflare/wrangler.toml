@@ -8,3 +8,24 @@ compatibility_flags = ["nodejs_compat"]
 binding = "DB"
 database_name = "merch-db"
 database_id = "3967b160-494c-48f1-bb65-8f6861cbea2e"
+
+# Variables
+[vars]
+SENDER_EMAIL = "admin@brockcsc.ca"
+SENDER_NAME = "BrockCSC Merch"
+TEMPLATE_ID = "351ndgwmwvqlzqx8"
+
+[observability]
+enabled = false
+head_sampling_rate = 1
+
+[observability.logs]
+enabled = true
+head_sampling_rate = 1
+persist = true
+invocation_logs = true
+
+[observability.traces]
+enabled = false
+persist = true
+head_sampling_rate = 1
