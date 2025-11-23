@@ -185,7 +185,11 @@
           color: #ffffff;
         }
         .order-card {
-          background: linear-gradient(135deg, #3a3a3a 0%, #4a4a4a 100%) !important;
+          background: linear-gradient(
+            135deg,
+            #3a3a3a 0%,
+            #4a4a4a 100%
+          ) !important;
           box-shadow: 0 4px 15px rgba(170, 59, 59, 0.2);
         }
         .order-card h3 {
@@ -234,26 +238,69 @@
         </p>
         <div class="order-card">
           <h3>Order Summary</h3>
-          <table class="order-table" style="width:100%; border-collapse:collapse;">
+          <table
+            class="order-table"
+            style="width: 100%; border-collapse: collapse"
+          >
             <tr class="order-item">
-              <td style="padding:12px 0; border-bottom:1px solid #dee2e6;"><strong>Item:</strong></td>
-              <td style="text-align:right; padding:12px 0; border-bottom:1px solid #dee2e6;">Brock CSC Hoodie</td>
+              <td style="padding: 12px 0; border-bottom: 1px solid #dee2e6">
+                <strong>Item:</strong>
+              </td>
+              <td
+                style="
+                  text-align: right;
+                  padding: 12px 0;
+                  border-bottom: 1px solid #dee2e6;
+                "
+              >
+                Brock CSC Hoodie
+              </td>
             </tr>
             <tr class="order-item">
-              <td style="padding:12px 0; border-bottom:1px solid #dee2e6;"><strong>Color:</strong></td>
-              <td style="text-align:right; padding:12px 0; border-bottom:1px solid #dee2e6;">{{color}}</td>
+              <td style="padding: 12px 0; border-bottom: 1px solid #dee2e6">
+                <strong>Color:</strong>
+              </td>
+              <td
+                style="
+                  text-align: right;
+                  padding: 12px 0;
+                  border-bottom: 1px solid #dee2e6;
+                "
+              >
+                {{color}}
+              </td>
             </tr>
             <tr class="order-item">
-              <td style="padding:12px 0; border-bottom:1px solid #dee2e6;"><strong>Size:</strong></td>
-              <td style="text-align:right; padding:12px 0; border-bottom:1px solid #dee2e6;">{{size}}</td>
+              <td style="padding: 12px 0; border-bottom: 1px solid #dee2e6">
+                <strong>Size:</strong>
+              </td>
+              <td
+                style="
+                  text-align: right;
+                  padding: 12px 0;
+                  border-bottom: 1px solid #dee2e6;
+                "
+              >
+                {{size}}
+              </td>
             </tr>
             <tr class="order-item">
-              <td style="padding:12px 0; border-bottom:1px solid #dee2e6;"><strong>Student ID:</strong></td>
-              <td style="text-align:right; padding:12px 0; border-bottom:1px solid #dee2e6;">{{student_id}}</td>
+              <td style="padding: 12px 0; border-bottom: 1px solid #dee2e6">
+                <strong>Student ID:</strong>
+              </td>
+              <td
+                style="
+                  text-align: right;
+                  padding: 12px 0;
+                  border-bottom: 1px solid #dee2e6;
+                "
+              >
+                {{student_id}}
+              </td>
             </tr>
             <tr class="order-item">
-              <td style="padding:12px 0;"><strong>Total:</strong></td>
-              <td style="text-align:right; padding:12px 0;">$50.00 CAD</td>
+              <td style="padding: 12px 0"><strong>Total:</strong></td>
+              <td style="text-align: right; padding: 12px 0">$50.00 CAD</td>
             </tr>
           </table>
         </div>
@@ -266,7 +313,10 @@
             >admin@brockcsc.ca</a
           >.
         </p>
-        <a href="https://discord.gg/qsctEK2" class="cta-button" style="color: #ffffff !important;"
+        <a
+          href="https://discord.gg/qsctEK2"
+          class="cta-button"
+          style="color: #ffffff !important"
           >Join Our Community</a
         >
         <p>Best regards,<br />The Brock CSC Team</p>
