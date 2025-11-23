@@ -234,18 +234,11 @@ Our system includes professionally designed email templates featuring:
 
 ### Template Preview
 
-```
-┌─────────────────────────────────────┐
-│           Brock CSC                 │
-│       Order Confirmation            │
-├─────────────────────────────────────┤
-│ Item: Brock CSC Hoodie              │
-│ Color: Black | Size: M              │
-│ Total: $50.00 CAD                   │
-├─────────────────────────────────────┤
-│ Thank you for supporting Brock CSC! │
-└─────────────────────────────────────┘
-```
+<div align="center">
+  <img src="https://github.com/BrockCSC/merch.brockcsc.ca/blob/main/auxiliary/email-template-preview.png?raw=true" alt="BrockCSC Email Template Preview" width="600"/>
+</div>
+
+*Professional email confirmation with BrockCSC branding, order details, and community links*
 
 ---
 
