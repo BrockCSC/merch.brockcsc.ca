@@ -3,12 +3,6 @@ main = "src/index.ts"
 compatibility_date = "2025-11-15"
 compatibility_flags = ["nodejs_compat"]
 
-# D1 Database binding
-[[d1_databases]]
-binding = "DB"
-database_name = "merch-db"
-database_id = "<your-d1-database-id>"  # Replace with actual ID from Cloudflare dashboard
-
 # This tells wrangler to look for database name variables.
 [vars]
 MONGODB_DB = "merch"

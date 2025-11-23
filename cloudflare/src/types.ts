@@ -1,5 +1,3 @@
-import { D1Database } from '@cloudflare/workers-types';
-
 export enum Color {
   Black = 'BLACK',
   White = 'WHITE',
@@ -13,26 +11,25 @@ export enum Size {
 }
 
 export interface Order {
-  id: number;
   name: string;
   studentId: number;
   email: string;
   color: Color;
   size: Size;
   paymentId: string;
-  createdAt: string;
+  createdAt: Date;
 }
 
 export interface Env {
   // Secrets
   PAYMENT_API_KEY: string;
+  DB_URL: string;
   MAIL_API_KEY: string;
   WEBHOOK_SECRET: string;
 
-  // Database
-  DB: D1Database;
-
   // Variables
+  MONGODB_DB?: string;
+  MONGODB_COLLECTION?: string;
   SENDER_EMAIL: string;
   SENDER_NAME: string;
   TEMPLATE_ID: string;
