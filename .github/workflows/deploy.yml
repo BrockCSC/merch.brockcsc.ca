@@ -12,26 +12,23 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Check workflow status
+      - name: Check for Cloudflare changes
+        id: changed-files
         run: |
-          if [ "${{ github.event.workflow_run.conclusion }}" != "success" ]; then
-            echo "Lint workflow failed, skipping deploy"
-            exit 1
+          # Get the commit SHA from the workflow run
+          COMMIT_SHA=${{ github.event.workflow_run.head_sha }}
+          
+          # Check if there are changes in cloudflare directory or deploy workflow
+          if git diff --name-only ${COMMIT_SHA}~1 ${COMMIT_SHA} | grep -E '^(cloudflare/|\.github/workflows/deploy\.yml)'; then
+            echo "changes=true" >> $GITHUB_OUTPUT
+            echo "Cloudflare-related changes detected, proceeding with deployment"
+          else
+            echo "changes=false" >> $GITHUB_OUTPUT
+            echo "No Cloudflare-related changes, skipping deployment"
           fi
 
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
       - name: Deploy to Cloudflare Workers
+        if: steps.changed-files.outputs.changes == 'true'
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
