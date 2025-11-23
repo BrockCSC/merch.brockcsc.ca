@@ -105,7 +105,10 @@ export default {
     //Allowed origin
     const referer = request.headers.get('Referer') || '';
     const origin = request.headers.get('Origin') || '';
-    if (!DISABLE_ORIGIN_CHECK && !ALLOWED_ORIGINS.some((o) => referer.startsWith(o) || origin === o)) {
+    if (
+      !DISABLE_ORIGIN_CHECK &&
+      !ALLOWED_ORIGINS.some((o) => referer.startsWith(o) || origin === o)
+    ) {
       return new Response(
         JSON.stringify({ success: false, message: 'Invalid origin' }),
         {
