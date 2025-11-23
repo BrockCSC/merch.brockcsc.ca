@@ -1,7 +1,10 @@
 name: Deploy to Cloudflare Workers
 
 on:
-  push:
+  workflow_run:
+    workflows: ["Code Quality Checks"]
+    types:
+      - completed
     branches:
       - main
 
@@ -9,6 +12,13 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Check workflow status
+        run: |
+          if [ "${{ github.event.workflow_run.conclusion }}" != "success" ]; then
+            echo "Lint workflow failed, skipping deploy"
+            exit 1
+          fi
+
       - name: Checkout code
         uses: actions/checkout@v4
 
