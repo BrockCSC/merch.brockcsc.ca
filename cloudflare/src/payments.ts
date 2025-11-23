@@ -4,6 +4,9 @@ import { type Env } from "./types";
 interface paymentInput {
   email: string;
   name: string;
+  studentId: number;
+  color: string;
+  size: string;
 }
 
 interface PaymentOutput {
@@ -40,6 +43,13 @@ export async function processPayment(
       customer: customer.id,
       automatic_payment_methods: {
         enabled: true,
+      },
+      metadata: {
+        name: data.name,
+        email: data.email,
+        studentId: data.studentId.toString(),
+        color: data.color,
+        size: data.size,
       },
     });
 
