@@ -238,7 +238,7 @@ Our system includes professionally designed email templates featuring:
   <img src="https://github.com/BrockCSC/merch.brockcsc.ca/blob/main/auxiliary/email-template-preview.png?raw=true" alt="BrockCSC Email Template Preview" width="600"/>
 </div>
 
-*Professional email confirmation with BrockCSC branding, order details, and community links*
+_Professional email confirmation with BrockCSC branding, order details, and community links_
 
 ---
 
