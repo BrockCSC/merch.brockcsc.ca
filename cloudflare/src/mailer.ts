@@ -34,6 +34,7 @@ export async function sendConfirmationEmail(
   const emailParams = new EmailParams()
     .setFrom(sentFrom)
     .setTo(recipients)
+    .setSubject("BrockCSC Merch Order Confirmation")
     .setTemplateId(env.TEMPLATE_ID)
     .setPersonalization(personalization);
 
