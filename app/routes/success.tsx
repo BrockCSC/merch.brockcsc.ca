@@ -1,6 +1,5 @@
 import type { Route } from "./+types/success";
-import { Link } from "react-router";
-
+import { Link } from "react-router"
 
 export function meta({ }: Route.MetaArgs) {
   return [
@@ -12,8 +11,8 @@ export function meta({ }: Route.MetaArgs) {
 export default function Success({
   customerName = "Jay",
   orderNumber = "999",
-  email = "brockcsc@gmail.com",
 }) {
+
   return (
     <main className="min-h-screen bg-neutral-100 flex items-center justify-center px-4 w-[100vw] ml-[calc(50%-50vw)] mr-[calc(50%-50vw)]">
       <section className="w-full max-w-2xl rounded-lg bg-white border border-neutral-200 shadow-sm py-10 px-6">
@@ -34,17 +33,11 @@ export default function Success({
           <div className="w-full max-w-lg text-left">
 
             <h1 className="text-xl font-extrabold text-neutral-900 leading-snug mb-2">
-              Thank you for shopping with us {customerName},
-              <br />
               Your order has been confirmed!
             </h1>
 
-            <p className="text-sm text-neutral-800">
-              Order number {orderNumber} has been confirmed.
-            </p>
-
             <p className="text-sm text-neutral-700 mt-1">
-              You&apos;ll receive an email confirmation shortly.
+              You&apos;ll receive an email confirmation shortly from from admin@brockcsc.ca.
             </p>
 
             <hr className="my-6 border-neutral-200" />
@@ -56,10 +49,10 @@ export default function Success({
             <p className="text-sm text-neutral-700">
               If you have any questions, contact us at{" "}
               <a
-                href={`mailto:${email}`}
+                href={`mailto: brockcsc@gmail.com`}
                 className="text-blue-600 underline"
               >
-                {email}
+                brockcsc@gmail.com
               </a>{" "}
               or reach out to an executive through Discord.
             </p>
