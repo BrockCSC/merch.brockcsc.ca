@@ -12,8 +12,8 @@ database_id = "3967b160-494c-48f1-bb65-8f6861cbea2e"
 # Variables
 [vars]
 SENDER_EMAIL = "admin@brockcsc.ca"
-SENDER_NAME = "BrockCSC Merch"
-TEMPLATE_ID = "351ndgwmwvqlzqx8"
+SENDER_NAME = "Brock Computer Science Club"
+TEMPLATE_ID = "v69oxl5d1z24785k"
 
 [observability]
 enabled = false
