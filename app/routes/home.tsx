@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useNavigate } from "react-router";
 import type { Route } from "./+types/home";
 import { SizeGuideModal } from "~/components/size-guide-modal";
+import { useOrder } from "~/context/order-context";
 
 export function meta({ }: Route.MetaArgs) {
   return [
@@ -35,6 +37,8 @@ export default function Home() {
   const [selectedSize, setSelectedSize] = useState<string>("M");
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isSizeGuideOpen, setIsSizeGuideOpen] = useState(false);
+  const { setOrderItem } = useOrder();
+  const navigate = useNavigate();
 
   // Reset image index when color changes
   const handleColorChange = (color: "white" | "black") => {
@@ -151,7 +155,16 @@ export default function Home() {
 
           {/* Actions */}
           <div className="pt-6 max-w-md">
-            <button className="w-full bg-[#aa3b3b] text-white h-14 rounded-xl font-semibold text-lg shadow-lg hover:bg-[#8a2f2f] hover:shadow-xl transition-all duration-300 active:scale-[0.98] flex items-center justify-center gap-2">
+            <button
+              onClick={() => {
+                setOrderItem({
+                  color: selectedColor,
+                  size: selectedSize,
+                });
+                navigate("/checkout");
+              }}
+              className="w-full bg-[#aa3b3b] text-white h-14 rounded-xl font-semibold text-lg shadow-lg hover:bg-[#8a2f2f] hover:shadow-xl transition-all duration-300 active:scale-[0.98] flex items-center justify-center gap-2"
+            >
               Order Now
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12h14" />
