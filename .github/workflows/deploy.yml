@@ -2,7 +2,7 @@ name: Deploy to Cloudflare Workers
 
 on:
   workflow_run:
-    workflows: ["Code Quality Checks"]
+    workflows: ['Code Quality Checks']
     types:
       - completed
     branches:
