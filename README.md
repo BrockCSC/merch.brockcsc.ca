@@ -13,7 +13,7 @@
 
 _A full-stack e-commerce platform built for the Brock Computer Science Club, featuring secure payments, automated fulfillment, and a modern React interface._
 
-[🚀 Live Demo](#-live-demo) • [✨ Features](#-features) • [🏗️ Architecture](#-architecture) • [🚀 Quick Start](#-quick-start) • [📊 API](#-api) • [🤝 Contributing](#-contributing)
+[✨ Features](#-features) • [🏗️ Architecture](#-architecture) • [🚀 Quick Start](#-quick-start) • [📊 API](#-api) • [🤝 Contributing](#-contributing)
 
 ---
 
