@@ -4,10 +4,9 @@ import { sendConfirmationEmail } from './mailer';
 import { type Env, Color, Size } from './types';
 import Stripe from 'stripe';
 
-const ALLOWED_ORIGINS = [
-  'https://brockcsc.ca',
-  'https://merch.brockcsc.ca',
-];
+const DISABLE_ORIGIN_CHECK = true; // ! Always keep false in production
+
+const ALLOWED_ORIGINS = ['https://brockcsc.ca', 'https://merch.brockcsc.ca'];
 
 async function handleWebhook(request: Request, env: Env): Promise<Response> {
   if (request.method !== 'POST') {
@@ -106,7 +105,7 @@ export default {
     //Allowed origin
     const referer = request.headers.get('Referer') || '';
     const origin = request.headers.get('Origin') || '';
-    if (!ALLOWED_ORIGINS.some((o) => referer.startsWith(o) || origin === o)) {
+    if (!DISABLE_ORIGIN_CHECK && !ALLOWED_ORIGINS.some((o) => referer.startsWith(o) || origin === o)) {
       return new Response(
         JSON.stringify({ success: false, message: 'Invalid origin' }),
         {
