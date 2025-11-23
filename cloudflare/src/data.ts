@@ -31,10 +31,12 @@ export async function writeOrderToDB(
   };
 
   try {
-    const stmt = env.DB.prepare(`
+    const stmt = env.DB.prepare(
+      `
       INSERT INTO orders (name, studentId, email, color, size, paymentId, createdAt)
       VALUES (?, ?, ?, ?, ?, ?, ?)
-    `).bind(
+    `
+    ).bind(
       documentToInsert.name,
       documentToInsert.studentId,
       documentToInsert.email,
@@ -49,9 +51,7 @@ export async function writeOrderToDB(
     const insertedId = result.meta.last_row_id;
 
     // tempory console message for dev
-    console.log(
-      `Order successfully written to DB with id: ${insertedId}`
-    );
+    console.log(`Order successfully written to DB with id: ${insertedId}`);
 
     return {
       id: insertedId,
