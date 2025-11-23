@@ -2,7 +2,7 @@
 
 # 🛍️ BrockCSC Merch Store
 
-### *Empowering Brock Computer Science Students with Official Gear*
+### _Empowering Brock Computer Science Students with Official Gear_
 
 [![React](https://img.shields.io/badge/React-19.1.1-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://reactjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9.2-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
@@ -11,7 +11,7 @@
 [![Stripe](https://img.shields.io/badge/Stripe-635BFF?style=for-the-badge&logo=stripe&logoColor=white)](https://stripe.com/)
 [![Cloudflare D1](https://img.shields.io/badge/Cloudflare_D1-000000?style=for-the-badge&logo=cloudflare&logoColor=white)](https://developers.cloudflare.com/d1/)
 
-*A full-stack e-commerce platform built for the Brock Computer Science Club, featuring secure payments, automated fulfillment, and a modern React interface.*
+_A full-stack e-commerce platform built for the Brock Computer Science Club, featuring secure payments, automated fulfillment, and a modern React interface._
 
 [🚀 Live Demo](#-live-demo) • [✨ Features](#-features) • [🏗️ Architecture](#-architecture) • [🚀 Quick Start](#-quick-start) • [📊 API](#-api) • [🤝 Contributing](#-contributing)
 
@@ -24,14 +24,18 @@
 Welcome to the **BrockCSC Merch Store** — a comprehensive e-commerce solution designed specifically for Brock University's Computer Science Club. This platform enables students to purchase official club merchandise while demonstrating modern web development practices with a focus on security, scalability, and user experience.
 
 ### The Challenge
+
 Managing merchandise sales for a student organization requires:
+
 - Secure payment processing for student transactions
 - Automated order fulfillment and notifications
 - Student verification and community engagement
 - Scalable infrastructure that can handle peak demand
 
 ### The Solution
+
 This full-stack application combines:
+
 - **Frontend**: Modern React SPA with TypeScript and Tailwind CSS
 - **Backend**: Serverless Cloudflare Workers with D1 database
 - **Payments**: Stripe integration with webhook handling
@@ -43,18 +47,21 @@ This full-stack application combines:
 ## ✨ Features
 
 ### 🛒 Customer Experience
+
 - **Seamless Ordering**: Intuitive interface for hoodie purchases in multiple sizes and colors
 - **Secure Payments**: PCI-compliant Stripe integration with real-time processing
 - **Student Verification**: Brock student ID validation for exclusive access
 - **Instant Confirmations**: Branded email notifications with order details
 
 ### 🔧 Technical Excellence
+
 - **Type-Safe Development**: Full TypeScript implementation across stack
 - **Serverless Backend**: Cloudflare Workers for instant scaling
 - **Database Integration**: Cloudflare D1 (SQLite) for reliable data storage
 - **Email Automation**: Templated confirmations with responsive design
 
 ### 🏛️ Infrastructure
+
 - **Global CDN**: Cloudflare Pages for fast worldwide delivery
 - **Webhook Security**: Signature verification and origin validation
 - **Error Handling**: Comprehensive logging and graceful failures
@@ -81,6 +88,7 @@ This full-stack application combines:
 ### Core Components
 
 **Frontend Application**
+
 ```typescript
 // React Router with TypeScript
 export default function Home() {
@@ -89,17 +97,19 @@ export default function Home() {
 ```
 
 **Payment Processing**
+
 ```typescript
 // Stripe payment intent creation
 const paymentIntent = await stripe.paymentIntents.create({
   amount: 6000, // $60.00 CAD
   currency: 'cad',
   customer: customer.id,
-  metadata: { name, email, studentId, color, size }
+  metadata: { name, email, studentId, color, size },
 });
 ```
 
 **Database Operations**
+
 ```sql
 -- Order storage schema
 CREATE TABLE orders (
@@ -111,6 +121,7 @@ CREATE TABLE orders (
 ```
 
 **Email Templates**
+
 ```html
 <!-- Responsive HTML email with BrockCSC branding -->
 <div style="background: linear-gradient(135deg, #aa3b3b, #d45a5a);">
@@ -123,6 +134,7 @@ CREATE TABLE orders (
 ## 🚀 Quick Start
 
 ### Prerequisites
+
 - Node.js 18+
 - Cloudflare account
 - Stripe account
@@ -177,6 +189,7 @@ wrangler d1 execute merch-db --file=cloudflare/schema.sql
 Creates a Stripe payment intent for merchandise orders.
 
 **Request:**
+
 ```json
 {
   "name": "John Doe",
@@ -188,6 +201,7 @@ Creates a Stripe payment intent for merchandise orders.
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -202,6 +216,7 @@ Creates a Stripe payment intent for merchandise orders.
 Handles payment confirmations and triggers order processing.
 
 **Headers:**
+
 ```
 Stripe-Signature: t=123456,v1=signature
 ```
@@ -218,6 +233,7 @@ Our system includes professionally designed email templates featuring:
 - **Social Links**: Connect with the community
 
 ### Template Preview
+
 ```
 ┌─────────────────────────────────────┐
 │           Brock CSC                 │
@@ -236,12 +252,14 @@ Our system includes professionally designed email templates featuring:
 ## 🔒 Security & Performance
 
 ### Security Features
+
 - **Origin Validation**: CORS and referrer checks
 - **Webhook Verification**: Stripe signature validation
 - **Environment Secrets**: Secure key management
 - **Type Safety**: TypeScript prevents runtime errors
 
 ### Performance Optimizations
+
 - **Global CDN**: Cloudflare's worldwide network
 - **Serverless Scaling**: Instant capacity adjustment
 - **Optimized Bundling**: Vite for fast builds
@@ -251,14 +269,14 @@ Our system includes professionally designed email templates featuring:
 
 ## 📈 Results & Metrics
 
-| Metric | Value |
-|--------|-------|
-| **Deployment Time** | < 2 minutes |
-| **Payment Success Rate** | > 99% |
-| **Email Delivery** | 100% |
-| **Uptime** | 99.9% |
+| Metric                   | Value       |
+| ------------------------ | ----------- |
+| **Deployment Time**      | < 2 minutes |
+| **Payment Success Rate** | > 99%       |
+| **Email Delivery**       | 100%        |
+| **Uptime**               | 99.9%       |
 
-*Based on production monitoring and user feedback*
+_Based on production monitoring and user feedback_
 
 ---
 
@@ -273,6 +291,7 @@ We welcome contributions from Brock CSC members! Areas for improvement:
 - **Documentation**: API docs and user guides
 
 ### Development Workflow
+
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes
@@ -299,6 +318,7 @@ Built for the Brock Computer Science Club. All rights reserved.
 ## 📧 Contact
 
 **Brock Computer Science Club**
+
 - Website: [brockcsc.ca](https://brockcsc.ca)
 - Email: admin@brockcsc.ca
 - Discord: [discord.gg/qsctEK2](https://discord.gg/qsctEK2)
@@ -309,7 +329,7 @@ Built for the Brock Computer Science Club. All rights reserved.
 
 ### 🏔️ Proudly Built by Brock Computer Science Students
 
-*Show your Brock CSC pride with official merchandise!*
+_Show your Brock CSC pride with official merchandise!_
 
 [![Brock University](https://img.shields.io/badge/Brock_University-FF0000?style=for-the-badge&logoColor=white)](https://brocku.ca/)
 [![Computer Science](https://img.shields.io/badge/Computer_Science-000000?style=for-the-badge&logoColor=white)](https://brocku.ca/compsci/)
