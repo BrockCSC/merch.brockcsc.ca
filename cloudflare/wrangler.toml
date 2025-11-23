@@ -3,7 +3,8 @@ main = "src/index.ts"
 compatibility_date = "2025-11-15"
 compatibility_flags = ["nodejs_compat"]
 
-# This tells wrangler to look for database name variables.
-[vars]
-MONGODB_DB = "merch"
-MONGODB_COLLECTION = "orders"
+# D1 Database binding
+[[d1_databases]]
+binding = "DB"
+database_name = "merch-db"
+database_id = "3967b160-494c-48f1-bb65-8f6861cbea2e"
