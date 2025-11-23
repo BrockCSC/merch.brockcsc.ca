@@ -1,5 +1,5 @@
-import Stripe from "stripe";
-import { type Env } from "./types";
+import Stripe from 'stripe';
+import { type Env } from './types';
 
 interface paymentInput {
   email: string;
@@ -22,11 +22,11 @@ export async function processPayment(
   env: Env
 ): Promise<PaymentOutput> {
   if (!env.PAYMENT_API_KEY) {
-    throw new Error("PAYMENT_API_KEY env variable is not set.");
+    throw new Error('PAYMENT_API_KEY env variable is not set.');
   }
 
   const stripe = new Stripe(env.PAYMENT_API_KEY, {
-    apiVersion: "2025-10-29.clover",
+    apiVersion: '2025-10-29.clover',
   });
 
   try {
@@ -39,7 +39,7 @@ export async function processPayment(
     // 2. Payment Intent
     const paymentIntent = await stripe.paymentIntents.create({
       amount: HOODIE_PRICE_IN_CENTS,
-      currency: "cad",
+      currency: 'cad',
       customer: customer.id,
       automatic_payment_methods: {
         enabled: true,
@@ -55,7 +55,7 @@ export async function processPayment(
 
     if (!paymentIntent.client_secret) {
       throw new Error(
-        "Failed to create Payment Intent: client_secret is null."
+        'Failed to create Payment Intent: client_secret is null.'
       );
     }
 
@@ -66,7 +66,7 @@ export async function processPayment(
       paymentId: paymentIntent.id,
     };
   } catch (error: any) {
-    console.error(" Stripe Api error: ", error.message);
-    throw new Error("Payment proccessing failed.");
+    console.error(' Stripe Api error: ', error.message);
+    throw new Error('Payment proccessing failed.');
   }
 }

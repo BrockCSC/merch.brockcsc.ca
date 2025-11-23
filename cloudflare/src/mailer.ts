@@ -1,13 +1,13 @@
 // author: Jay
-import { MailerSend, EmailParams, Sender, Recipient } from "mailersend";
-import { type Order, type Env } from "./types";
+import { MailerSend, EmailParams, Sender, Recipient } from 'mailersend';
+import { type Order, type Env } from './types';
 
 export async function sendConfirmationEmail(
   order: Order,
   env: Env
 ): Promise<boolean> {
   if (!env.MAIL_API_KEY) {
-    console.error("MAIL_API_KEY is not set. Cannot send email.");
+    console.error('MAIL_API_KEY is not set. Cannot send email.');
     return false;
   }
 
@@ -34,7 +34,7 @@ export async function sendConfirmationEmail(
   const emailParams = new EmailParams()
     .setFrom(sentFrom)
     .setTo(recipients)
-    .setSubject("BrockCSC Merch Order Confirmation")
+    .setSubject('BrockCSC Merch Order Confirmation')
     .setTemplateId(env.TEMPLATE_ID)
     .setPersonalization(personalization);
 
@@ -43,7 +43,7 @@ export async function sendConfirmationEmail(
     console.log(`Confirmation email sent successfully to ${order.email}`);
     return true;
   } catch (error) {
-    console.error("Failed to send confirmation email:", error);
+    console.error('Failed to send confirmation email:', error);
     return false;
   }
 }

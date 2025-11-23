@@ -1,7 +1,7 @@
 //Author: Ayaan
-import { MongoClient, ServerApiVersion } from "mongodb";
+import { MongoClient, ServerApiVersion } from 'mongodb';
 
-import { Color, Size, type Order, type Env } from "./types";
+import { Color, Size, type Order, type Env } from './types';
 interface OrderInput {
   name: string;
   studentId: number;
@@ -22,7 +22,7 @@ export async function writeOrderToDB(
   env: Env
 ): Promise<Order & { _id: any }> {
   if (!env.DB_URL) {
-    throw new Error("DB_URL environment variable is not set.");
+    throw new Error('DB_URL environment variable is not set.');
   }
 
   const client = new MongoClient(env.DB_URL, {
@@ -35,8 +35,8 @@ export async function writeOrderToDB(
 
   try {
     await client.connect();
-    const db = client.db(env.MONGODB_DB || "merch_orders");
-    const collection = db.collection<Order>(env.MONGODB_COLLECTION || "orders");
+    const db = client.db(env.MONGODB_DB || 'merch_orders');
+    const collection = db.collection<Order>(env.MONGODB_COLLECTION || 'orders');
 
     const documentToInsert: Order = {
       name: orderDetails.name,
@@ -60,8 +60,8 @@ export async function writeOrderToDB(
       _id: result.insertedId,
     };
   } catch (error) {
-    console.error("Failed to write order to MongoDB", error);
-    throw new Error("Database write operation failed.");
+    console.error('Failed to write order to MongoDB', error);
+    throw new Error('Database write operation failed.');
   } finally {
     await client.close();
   }

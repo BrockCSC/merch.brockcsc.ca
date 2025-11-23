@@ -1,14 +1,14 @@
-import { processPayment } from "./payments";
-import { writeOrderToDB } from "./data";
-import { sendConfirmationEmail } from "./mailer";
-import { type Env, Color, Size } from "./types";
-import Stripe from "stripe";
+import { processPayment } from './payments';
+import { writeOrderToDB } from './data';
+import { sendConfirmationEmail } from './mailer';
+import { type Env, Color, Size } from './types';
+import Stripe from 'stripe';
 
 const ALLOWED_ORIGINS = [
-  "http://localhost:5173",
-  "https://brockcsc.ca",
-  "https://volunteer.brockcsc.ca",
-  "http://localhost:8000",
+  'http://localhost:5173',
+  'https://brockcsc.ca',
+  'https://volunteer.brockcsc.ca',
+  'http://localhost:8000',
 ];
 
 async function handleWebhook(request: Request, env: Env): Promise<Response> {
@@ -23,12 +23,18 @@ async function handleWebhook(request: Request, env: Env): Promise<Response> {
     return new Response('Bad request', { status: 400 });
   }
 
-  const stripe = new Stripe(env.PAYMENT_API_KEY, { apiVersion: '2025-10-29.clover' });
+  const stripe = new Stripe(env.PAYMENT_API_KEY, {
+    apiVersion: '2025-10-29.clover',
+  });
 
   let event;
 
   try {
-    event = await stripe.webhooks.constructEventAsync(body, sig, env.WEBHOOK_SECRET);
+    event = await stripe.webhooks.constructEventAsync(
+      body,
+      sig,
+      env.WEBHOOK_SECRET
+    );
   } catch (err: any) {
     console.error('Webhook signature verification failed.', err.message);
     return new Response('Webhook error', { status: 400 });
@@ -39,7 +45,12 @@ async function handleWebhook(request: Request, env: Env): Promise<Response> {
   if (event.type === 'payment_intent.succeeded') {
     const paymentIntent = event.data.object;
     const metadata = paymentIntent.metadata;
-    console.log('Processing payment_intent.succeeded for:', paymentIntent.id, 'Metadata:', metadata);
+    console.log(
+      'Processing payment_intent.succeeded for:',
+      paymentIntent.id,
+      'Metadata:',
+      metadata
+    );
 
     const orderData = {
       name: metadata.name,
@@ -67,46 +78,46 @@ export default {
     }
 
     //CORS preflight
-    if (request.method == "OPTIONS") {
+    if (request.method == 'OPTIONS') {
       return new Response(null, {
         status: 204,
         headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods": "POST, OPTIONS",
-          "Access-Control-Allow-Headers": "Content-Type",
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'POST, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type',
         },
       });
     }
 
     //POST only
-    if (request.method != "POST") {
+    if (request.method != 'POST') {
       return new Response(
-        JSON.stringify({ success: false, message: "Method Not Allowed" }),
-        { 
+        JSON.stringify({ success: false, message: 'Method Not Allowed' }),
+        {
           status: 405,
           headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "POST, OPTIONS",
-            "Access-Control-Allow-Headers": "Content-Type",
-          }
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type',
+          },
         }
       );
     }
 
     //Allowed origin
-    const referer = request.headers.get("Referer") || "";
+    const referer = request.headers.get('Referer') || '';
     if (!ALLOWED_ORIGINS.some((o) => referer.startsWith(o))) {
       return new Response(
-        JSON.stringify({ success: false, message: "Invalid origin" }),
-        { 
+        JSON.stringify({ success: false, message: 'Invalid origin' }),
+        {
           status: 403,
           headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "POST, OPTIONS",
-            "Access-Control-Allow-Headers": "Content-Type",
-          }
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type',
+          },
         }
       );
     }
@@ -117,15 +128,15 @@ export default {
       data = await request.json();
     } catch {
       return new Response(
-        JSON.stringify({ success: false, message: "Invalid JSON" }),
-        { 
+        JSON.stringify({ success: false, message: 'Invalid JSON' }),
+        {
           status: 400,
           headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "POST, OPTIONS",
-            "Access-Control-Allow-Headers": "Content-Type",
-          }
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type',
+          },
         }
       );
     }
@@ -133,38 +144,38 @@ export default {
     try {
       //process payment
       const payment = await processPayment(data, env);
-      
+
       return new Response(
         JSON.stringify({
           success: true,
           clientSecret: payment.clientSecret,
           paymentId: payment.paymentId,
-          message: "Payment intent created",
+          message: 'Payment intent created',
         }),
-        { 
-          status: 200, 
-          headers: { 
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "POST, OPTIONS",
-            "Access-Control-Allow-Headers": "Content-Type",
-          } 
+        {
+          status: 200,
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type',
+          },
         }
       );
     } catch (err: any) {
       return new Response(
         JSON.stringify({
           success: false,
-          message: err.message || "Something went wrong",
+          message: err.message || 'Something went wrong',
         }),
-        { 
-          status: 500, 
-          headers: { 
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "POST, OPTIONS",
-            "Access-Control-Allow-Headers": "Content-Type",
-          } 
+        {
+          status: 500,
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type',
+          },
         }
       );
     }
