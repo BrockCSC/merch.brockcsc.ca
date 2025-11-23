@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Merch Order Confirmation</title>
+  <style>
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); }
+    .container { max-width: 600px; margin: 20px auto; background: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+    .header { background: linear-gradient(135deg, #aa3b3b 0%, #d45a5a 100%); color: #ffffff; padding: 40px 20px; text-align: center; position: relative; }
+    .header::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="80" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="50" r="3" fill="rgba(255,255,255,0.05)"/></svg>') repeat; opacity: 0.3; }
+    .header img { max-width: 120px; height: auto; margin-bottom: 15px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+    .header h1 { margin: 0; font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
+    .header p { margin: 10px 0 0; font-size: 16px; opacity: 0.9; }
+    .content { padding: 40px 30px; }
+    .greeting { font-size: 20px; margin-bottom: 25px; color: #333; font-weight: 600; }
+    .order-card { background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 12px; padding: 25px; margin-bottom: 30px; border-left: 4px solid #aa3b3b; box-shadow: 0 4px 15px rgba(170, 59, 59, 0.1); }
+    .order-card h3 { margin-top: 0; color: #aa3b3b; font-size: 22px; font-weight: 700; }
+    .order-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid #dee2e6; }
+    .order-item:last-child { border-bottom: none; }
+    .order-item strong { color: #495057; font-weight: 600; }
+    .order-item span { color: #6c757d; }
+    .cta-button { display: inline-block; background: linear-gradient(135deg, #aa3b3b 0%, #d45a5a 100%); color: #ffffff; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: 600; text-align: center; margin: 20px 0; box-shadow: 0 4px 12px rgba(170, 59, 59, 0.3); transition: all 0.3s ease; }
+    .cta-button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(170, 59, 59, 0.4); }
+    .footer { background: #2d3748; color: #ffffff; padding: 30px 20px; text-align: center; }
+    .footer h4 { margin-top: 0; font-size: 18px; font-weight: 600; }
+    .social-icons { margin: 20px 0; }
+    .social-icons a { margin: 0 12px; display: inline-block; }
+    .social-icons img { width: 32px; height: 32px; transition: transform 0.3s ease; }
+    .social-icons img:hover { transform: scale(1.1); }
+    .footer p { margin: 15px 0; font-size: 14px; opacity: 0.8; }
+    @media (max-width: 600px) {
+      .container { margin: 10px; border-radius: 12px; }
+      .header { padding: 30px 15px; }
+      .header h1 { font-size: 24px; }
+      .content { padding: 25px 20px; }
+      .order-card { padding: 20px; }
+      .order-item { flex-direction: column; align-items: flex-start; gap: 5px; }
+      .social-icons a { margin: 0 8px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="https://brockcsc.ca/assets/exec-image-stub.png" alt="Brock Computer Science Club Logo">
+      <h1>Brock CSC</h1>
+      <p>Your Order is Confirmed!</p>
+    </div>
+    <div class="content">
+      <p class="greeting">Hey {{name}},</p>
+      <p>Thank you for supporting the Brock Computer Science Club! Your merch order has been successfully processed and is underway to be produced. We will notify you via email when it's ready to be picked up at the Brock Computer Science Club, Club Room at MCJ330.</p>
+      <div class="order-card">
+        <h3>Order Summary</h3>
+        <div class="order-item">
+          <strong>Item:</strong>
+          <span>Brock CSC Hoodie</span>
+        </div>
+        <div class="order-item">
+          <strong>Color:</strong>
+          <span>{{color}}</span>
+        </div>
+        <div class="order-item">
+          <strong>Size:</strong>
+          <span>{{size}}</span>
+        </div>
+        <div class="order-item">
+          <strong>Student ID:</strong>
+          <span>{{student_id}}</span>
+        </div>
+        <div class="order-item">
+          <strong>Total:</strong>
+          <span>$50.00 CAD</span>
+        </div>
+      </div>
+      <p>If you have any questions about your order, feel free to reach out to our team at <a href="mailto:admin@brockcsc.ca" style="color: #aa3b3b; text-decoration: none;">admin@brockcsc.ca</a>.</p>
+      <a href="https://discord.gg/qsctEK2" class="cta-button">Join Our Community</a>
+      <p>Best regards,<br>The Brock CSC Team</p>
+    </div>
+    <div class="footer">
+      <h4>Stay Connected</h4>
+      <div class="social-icons">
+        <a href="https://instagram.com/brockcsc"><img src="https://img.icons8.com/ios/50/ffffff/instagram-new.png" alt="Instagram"></a>
+        <a href="https://discord.gg/qsctEK2"><img src="https://img.icons8.com/ios/50/ffffff/discord.png" alt="Discord"></a>
+        <a href="https://github.com/brockcsc"><img src="https://img.icons8.com/ios/50/ffffff/github.png" alt="GitHub"></a>
+      </div>
+      <p>&copy; 2025 Brock Computer Science Club. All rights reserved.</p>
+      <p>Made with ❤️ for Brock Computer Science Students</p>
+    </div>
+  </div>
+</body>
+</html>
