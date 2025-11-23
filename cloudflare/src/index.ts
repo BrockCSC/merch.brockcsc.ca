@@ -5,10 +5,8 @@ import { type Env, Color, Size } from './types';
 import Stripe from 'stripe';
 
 const ALLOWED_ORIGINS = [
-  'http://localhost:5173',
   'https://brockcsc.ca',
-  'https://volunteer.brockcsc.ca',
-  'http://localhost:8000',
+  'https://merch.brockcsc.ca',
 ];
 
 async function handleWebhook(request: Request, env: Env): Promise<Response> {
@@ -107,7 +105,8 @@ export default {
 
     //Allowed origin
     const referer = request.headers.get('Referer') || '';
-    if (!ALLOWED_ORIGINS.some((o) => referer.startsWith(o))) {
+    const origin = request.headers.get('Origin') || '';
+    if (!ALLOWED_ORIGINS.some((o) => referer.startsWith(o) || origin === o)) {
       return new Response(
         JSON.stringify({ success: false, message: 'Invalid origin' }),
         {
