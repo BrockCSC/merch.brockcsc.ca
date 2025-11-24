@@ -26,7 +26,7 @@ export const MobileDrawer = ({
 
     const yStart = typeof y.get() == "number" ? y.get() : 0;
 
-    await animate("#drawer", { y: [yStart, -height] });
+    await animate("#drawer", { y: [yStart, height] });
 
     setOpen(false);
   };
@@ -45,22 +45,22 @@ export const MobileDrawer = ({
             id="drawer"
             ref={drawerRef}
             onClick={(e) => e.stopPropagation()}
-            initial={{ y: "-100%" }}
+            initial={{ y: "100%" }}
             animate={{ y: "0%" }}
             transition={{ ease: "easeInOut" }}
-            className="absolute bottom-0 h-[75vh] w-full overflow-hidden rounded-b-2xl bg-white"
+            className="absolute bottom-0 h-[75vh] w-full overflow-hidden rounded-t-2xl bg-white"
             style={{ y: y }}
             drag="y"
             dragControls={controls}
             onDragEnd={() => {
-              if (y.get() <= -100) {
+              if (y.get() >= 100) {
                 handleClose();
               }
             }}
             dragListener={false}
             dragConstraints={{ top: 0, bottom: 0.5 }}
           >
-            <div className="absolute left-0 right-0 bottom-0 z-10 flex justify-center bg-white p-4">
+            <div className="absolute left-0 right-0 top-0 z-10 flex justify-center bg-white p-4">
               <button
                 onPointerDown={(e) => {
                   controls.start(e);
