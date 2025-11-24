@@ -1,14 +1,14 @@
-import type { Route } from "./+types/success";
-import { Link } from "react-router";
+import type { Route } from './+types/success';
+import { Link } from 'react-router';
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Order Success - Merch Page" },
-    { name: "description", content: "Your order has been placed successfully" },
+    { title: 'Order Success - Merch Page' },
+    { name: 'description', content: 'Your order has been placed successfully' },
   ];
 }
 
-export default function Success({ customerName = "Jay", orderNumber = "999" }) {
+export default function Success({ customerName = 'Jay', orderNumber = '999' }) {
   return (
     <main className="min-h-screen bg-neutral-100 flex items-center justify-center px-4 w-[100vw] ml-[calc(50%-50vw)] mr-[calc(50%-50vw)]">
       <section className="w-full max-w-2xl rounded-lg bg-white border border-neutral-200 shadow-sm py-10 px-6">
@@ -18,7 +18,7 @@ export default function Success({ customerName = "Jay", orderNumber = "999" }) {
             <a href="https://brockcsc.ca">
               <img
                 width={120}
-                src={"./assets/logo-black.svg"}
+                src={'./assets/logo-black.svg'}
                 alt="Brock Computer Science Club Logo"
               />
             </a>
@@ -42,13 +42,13 @@ export default function Success({ customerName = "Jay", orderNumber = "999" }) {
             </h2>
 
             <p className="text-sm text-neutral-700">
-              If you have any questions, contact us at{" "}
+              If you have any questions, contact us at{' '}
               <a
                 href={`mailto: brockcsc@gmail.com`}
                 className="text-blue-600 underline"
               >
                 brockcsc@gmail.com
-              </a>{" "}
+              </a>{' '}
               or reach out to an executive through Discord.
             </p>
 

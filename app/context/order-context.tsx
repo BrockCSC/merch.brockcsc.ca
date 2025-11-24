@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, type ReactNode } from "react";
+import { createContext, useContext, useState, type ReactNode } from 'react';
 
 export type OrderItem = {
   color: string;
@@ -36,7 +36,7 @@ export function OrderProvider({ children }: { children: ReactNode }) {
 export function useOrder() {
   const context = useContext(OrderContext);
   if (context === undefined) {
-    throw new Error("useOrder must be used within a OrderProvider");
+    throw new Error('useOrder must be used within a OrderProvider');
   }
   return context;
 }
