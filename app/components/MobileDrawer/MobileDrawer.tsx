@@ -3,8 +3,8 @@ import {
   useAnimate,
   useDragControls,
   useMotionValue,
-} from "framer-motion";
-import useMeasure from "react-use-measure";
+} from 'framer-motion';
+import useMeasure from 'react-use-measure';
 
 export const MobileDrawer = ({
   open,
@@ -24,9 +24,9 @@ export const MobileDrawer = ({
   const handleClose = async () => {
     animate(scope.current, { opacity: [1, 0] });
 
-    const yStart = typeof y.get() == "number" ? y.get() : 0;
+    const yStart = typeof y.get() == 'number' ? y.get() : 0;
 
-    await animate("#drawer", { y: [yStart, -height] });
+    await animate('#drawer', { y: [yStart, -height] });
 
     setOpen(false);
   };
@@ -45,9 +45,9 @@ export const MobileDrawer = ({
             id="drawer"
             ref={drawerRef}
             onClick={(e) => e.stopPropagation()}
-            initial={{ y: "-100%" }}
-            animate={{ y: "0%" }}
-            transition={{ ease: "easeInOut" }}
+            initial={{ y: '-100%' }}
+            animate={{ y: '0%' }}
+            transition={{ ease: 'easeInOut' }}
             className="absolute bottom-0 h-[75vh] w-full overflow-hidden rounded-b-2xl bg-white"
             style={{ y: y }}
             drag="y"

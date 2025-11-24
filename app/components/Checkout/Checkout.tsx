@@ -1,14 +1,14 @@
-import { useState } from "react";
-import { RiDeleteBin5Line } from "react-icons/ri";
-import { MdKeyboardArrowDown } from "react-icons/md";
-import { MobileDrawer } from "~/components/MobileDrawer/MobileDrawer";
-import type { StripePaymentElementOptions } from "@stripe/stripe-js";
+import { useState } from 'react';
+import { RiDeleteBin5Line } from 'react-icons/ri';
+import { MdKeyboardArrowDown } from 'react-icons/md';
+import { MobileDrawer } from '~/components/MobileDrawer/MobileDrawer';
+import type { StripePaymentElementOptions } from '@stripe/stripe-js';
 
 import {
   PaymentElement,
   useStripe,
   useElements,
-} from "@stripe/react-stripe-js";
+} from '@stripe/react-stripe-js';
 
 //* DISREGARD COMMENTED CODE PUSHED TO REPO IN ORDER TO PULL TO GET THE REACT CONTEXT FUNCTIONALITY
 
@@ -44,7 +44,7 @@ export default function Checkout() {
   };
 
   const paymentElementOptions: StripePaymentElementOptions = {
-    layout: "accordion",
+    layout: 'accordion',
   };
 
   return (

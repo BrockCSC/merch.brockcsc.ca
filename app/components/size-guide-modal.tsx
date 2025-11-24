@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 interface SizeGuideModalProps {
   isOpen: boolean;
@@ -12,7 +12,7 @@ export function SizeGuideModal({ isOpen, onClose }: SizeGuideModalProps) {
   useEffect(() => {
     if (isOpen) {
       setIsRendered(true);
-      document.body.style.overflow = "hidden";
+      document.body.style.overflow = 'hidden';
       // Small delay to allow mount to happen before transition
       const timer = setTimeout(() => {
         setIsVisible(true);
@@ -20,7 +20,7 @@ export function SizeGuideModal({ isOpen, onClose }: SizeGuideModalProps) {
       return () => clearTimeout(timer);
     } else {
       setIsVisible(false);
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = 'unset';
       // Wait for animation to finish before unmounting
       const timer = setTimeout(() => {
         setIsRendered(false);
@@ -41,8 +41,8 @@ export function SizeGuideModal({ isOpen, onClose }: SizeGuideModalProps) {
       <div
         className={`absolute inset-0 bg-black/40 transition-all duration-300 ${
           isVisible
-            ? "opacity-100 backdrop-blur-sm"
-            : "opacity-0 backdrop-blur-none"
+            ? 'opacity-100 backdrop-blur-sm'
+            : 'opacity-0 backdrop-blur-none'
         }`}
         onClick={onClose}
       />
@@ -51,8 +51,8 @@ export function SizeGuideModal({ isOpen, onClose }: SizeGuideModalProps) {
       <div
         className={`relative bg-white rounded-3xl shadow-2xl w-full max-w-2xl overflow-hidden transform transition-all duration-300 ${
           isVisible
-            ? "opacity-100 scale-100 translate-y-0"
-            : "opacity-0 scale-95 translate-y-4"
+            ? 'opacity-100 scale-100 translate-y-0'
+            : 'opacity-0 scale-95 translate-y-4'
         }`}
       >
         {/* Header */}

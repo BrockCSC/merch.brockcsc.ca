@@ -1,54 +1,54 @@
-import { useState } from "react";
-import { useNavigate } from "react-router";
-import type { Route } from "./+types/home";
-import { SizeGuideModal } from "~/components/size-guide-modal";
-import { useOrder } from "~/context/order-context";
+import { useState } from 'react';
+import { useNavigate } from 'react-router';
+import type { Route } from './+types/home';
+import { SizeGuideModal } from '~/components/size-guide-modal';
+import { useOrder } from '~/context/order-context';
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "BrockCSC Hoodie | Official Merch" },
+    { title: 'BrockCSC Hoodie | Official Merch' },
     {
-      name: "description",
+      name: 'description',
       content:
-        "Get the official BrockCSC Hoodie. Available in Black and White.",
+        'Get the official BrockCSC Hoodie. Available in Black and White.',
     },
   ];
 }
 
 const PRODUCT = {
-  name: "BrockCSC Hoodie",
+  name: 'BrockCSC Hoodie',
   price: 50.0,
   description:
-    "The official hoodie of the Brock Computer Science Club. Made with premium heavyweight cotton for maximum comfort during those late-night coding sessions. Features a modern fit and durable embroidery.",
+    'The official hoodie of the Brock Computer Science Club. Made with premium heavyweight cotton for maximum comfort during those late-night coding sessions. Features a modern fit and durable embroidery.',
   colors: [
-    { id: "white", name: "White", class: "bg-white border-gray-200" },
-    { id: "black", name: "Black", class: "bg-black border-black" },
+    { id: 'white', name: 'White', class: 'bg-white border-gray-200' },
+    { id: 'black', name: 'Black', class: 'bg-black border-black' },
   ],
-  sizes: ["S", "M", "L", "XL"],
+  sizes: ['S', 'M', 'L', 'XL'],
   images: {
     white: {
-      m: "/merch/white-m.png",
-      f: "/merch/white-f.png",
+      m: '/merch/white-m.png',
+      f: '/merch/white-f.png',
     },
     black: {
-      m: "/merch/black-m.png",
-      f: "/merch/black-f.png",
+      m: '/merch/black-m.png',
+      f: '/merch/black-f.png',
     },
   },
 };
 
 export default function Home() {
-  const [selectedColor, setSelectedColor] = useState<"white" | "black">(
-    "black",
+  const [selectedColor, setSelectedColor] = useState<'white' | 'black'>(
+    'black'
   );
-  const [selectedSize, setSelectedSize] = useState<string>("M");
+  const [selectedSize, setSelectedSize] = useState<string>('M');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isSizeGuideOpen, setIsSizeGuideOpen] = useState(false);
   const { setOrderItem } = useOrder();
   const navigate = useNavigate();
 
   // Reset image index when color changes
-  const handleColorChange = (color: "white" | "black") => {
+  const handleColorChange = (color: 'white' | 'black') => {
     setSelectedColor(color);
     setCurrentImageIndex(0);
   };
@@ -84,8 +84,8 @@ export default function Home() {
                 onClick={() => setCurrentImageIndex(idx)}
                 className={`relative w-20 h-20 rounded-xl overflow-hidden border-2 transition-all duration-200 flex justify-center ${
                   currentImageIndex === idx
-                    ? "border-[#aa3b3b] ring-2 ring-[#aa3b3b] ring-offset-2"
-                    : "border-transparent hover:border-gray-300"
+                    ? 'border-[#aa3b3b] ring-2 ring-[#aa3b3b] ring-offset-2'
+                    : 'border-transparent hover:border-gray-300'
                 }`}
               >
                 <img
@@ -125,12 +125,12 @@ export default function Home() {
                   <button
                     key={color.id}
                     onClick={() =>
-                      handleColorChange(color.id as "white" | "black")
+                      handleColorChange(color.id as 'white' | 'black')
                     }
                     className={`w-12 h-12 rounded-full border-2 transition-all duration-300 focus:outline-none ring-2 ring-offset-2 ${color.class} ${
                       selectedColor === color.id
-                        ? "ring-[#aa3b3b] scale-110"
-                        : "ring-transparent hover:scale-105"
+                        ? 'ring-[#aa3b3b] scale-110'
+                        : 'ring-transparent hover:scale-105'
                     }`}
                     aria-label={`Select ${color.name}`}
                   />
@@ -158,8 +158,8 @@ export default function Home() {
                     onClick={() => setSelectedSize(size)}
                     className={`h-12 rounded-xl border font-medium text-sm transition-all duration-200 ${
                       selectedSize === size
-                        ? "border-[#aa3b3b] bg-[#aa3b3b] text-white shadow-md"
-                        : "border-gray-200 text-gray-900 hover:border-[#aa3b3b]"
+                        ? 'border-[#aa3b3b] bg-[#aa3b3b] text-white shadow-md'
+                        : 'border-gray-200 text-gray-900 hover:border-[#aa3b3b]'
                     }`}
                   >
                     {size}
@@ -177,7 +177,7 @@ export default function Home() {
                   color: selectedColor,
                   size: selectedSize,
                 });
-                navigate("/checkout");
+                navigate('/checkout');
               }}
               className="w-full bg-[#aa3b3b] text-white h-14 rounded-xl font-semibold text-lg shadow-lg hover:bg-[#8a2f2f] hover:shadow-xl transition-all duration-300 active:scale-[0.98] flex items-center justify-center gap-2"
             >
