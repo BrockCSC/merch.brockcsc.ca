@@ -15,7 +15,7 @@ export default function Nav() {
   const location = useLocation();
   const [showOverlay, setShowOverlay] = useState(false);
   const [scrollY, setScrollY] = useState(
-    typeof window !== "undefined" ? window.scrollY : 0
+    typeof window !== "undefined" ? window.scrollY : 0,
   );
 
   useEffect(() => {
@@ -44,7 +44,7 @@ export default function Nav() {
         className={classNames(
           "absolute left-0 right-0 -bottom-[2px] h-0.5 origin-left transform transition-transform duration-300 group-hover:scale-x-100",
           navLinkUnderlineColor,
-          isActive ? "scale-x-100" : "scale-x-0"
+          isActive ? "scale-x-100" : "scale-x-0",
         )}
         style={{
           transitionTimingFunction: underlineTiming,
@@ -64,13 +64,13 @@ export default function Nav() {
         className={classNames(
           "relative h-[86px] transition-all duration-300 ease-in-out",
           isWhite ? "bg-white" : "bg-transparent",
-          isScrolled && "shadow-[0px_7px_17px_-10px_rgba(0,0,0,0.4)]"
+          isScrolled && "shadow-[0px_7px_17px_-10px_rgba(0,0,0,0.4)]",
         )}
       >
         <div
           className={classNames(
             "absolute bottom-0 left-0 h-[2px] w-full bg-[#9d2235] transition-opacity duration-300 ease-in-out",
-            isScrolled ? "opacity-100" : "opacity-0"
+            isScrolled ? "opacity-100" : "opacity-0",
           )}
         />
         <div className="hidden h-full w-[75%] max-w-[1280px] mx-auto items-center justify-between lg:flex">
@@ -109,11 +109,9 @@ export default function Nav() {
                   className={classNames(navLinkBase, navLinkColor)}
                   title={link.label}
                 >
-                  {({ isActive }) =>
-                    renderNavLinkContent(link.label, isActive)
-                  }
+                  {({ isActive }) => renderNavLinkContent(link.label, isActive)}
                 </NavLink>
-              )
+              ),
             )}
           </nav>
         </div>
@@ -147,7 +145,7 @@ export default function Nav() {
                   hamburgerLineBase,
                   showOverlay
                     ? "top-1/2 -translate-y-1/2 rotate-45"
-                    : "top-0 translate-y-0 rotate-0"
+                    : "top-0 translate-y-0 rotate-0",
                 )}
                 style={{ backgroundColor: hamburgerLineColor }}
               />
@@ -155,7 +153,7 @@ export default function Nav() {
                 className={classNames(
                   hamburgerLineBase,
                   "top-1/2 -translate-y-1/2",
-                  showOverlay ? "opacity-0" : "opacity-100"
+                  showOverlay ? "opacity-0" : "opacity-100",
                 )}
                 style={{ backgroundColor: hamburgerLineColor }}
               />
@@ -164,7 +162,7 @@ export default function Nav() {
                   hamburgerLineBase,
                   showOverlay
                     ? "top-1/2 -translate-y-1/2 -rotate-45"
-                    : "bottom-0 translate-y-0 rotate-0"
+                    : "bottom-0 translate-y-0 rotate-0",
                 )}
                 style={{ backgroundColor: hamburgerLineColor }}
               />
@@ -173,7 +171,7 @@ export default function Nav() {
           <div
             className={classNames(
               "fixed inset-0 z-30 flex flex-col items-center justify-center gap-2 bg-black/90 px-4 text-center text-[#cccccc] transition-opacity duration-300",
-              showOverlay ? "opacity-100" : "pointer-events-none opacity-0"
+              showOverlay ? "opacity-100" : "pointer-events-none opacity-0",
             )}
             aria-hidden={!showOverlay}
           >
@@ -208,7 +206,7 @@ export default function Nav() {
                   >
                     {link.label}
                   </Link>
-                )
+                ),
               )}
             </div>
           </div>

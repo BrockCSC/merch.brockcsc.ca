@@ -38,17 +38,21 @@ export function SizeGuideModal({ isOpen, onClose }: SizeGuideModalProps) {
       aria-modal="true"
     >
       {/* Backdrop */}
-      <div 
+      <div
         className={`absolute inset-0 bg-black/40 transition-all duration-300 ${
-          isVisible ? "opacity-100 backdrop-blur-sm" : "opacity-0 backdrop-blur-none"
+          isVisible
+            ? "opacity-100 backdrop-blur-sm"
+            : "opacity-0 backdrop-blur-none"
         }`}
         onClick={onClose}
       />
 
       {/* Modal Content */}
-      <div 
+      <div
         className={`relative bg-white rounded-3xl shadow-2xl w-full max-w-2xl overflow-hidden transform transition-all duration-300 ${
-          isVisible ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 translate-y-4"
+          isVisible
+            ? "opacity-100 scale-100 translate-y-0"
+            : "opacity-0 scale-95 translate-y-4"
         }`}
       >
         {/* Header */}
@@ -59,7 +63,17 @@ export function SizeGuideModal({ isOpen, onClose }: SizeGuideModalProps) {
             className="p-2 hover:bg-gray-200 rounded-full transition-colors"
             aria-label="Close size guide"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
               <line x1="18" y1="6" x2="6" y2="18"></line>
               <line x1="6" y1="6" x2="18" y2="18"></line>
             </svg>
@@ -69,9 +83,12 @@ export function SizeGuideModal({ isOpen, onClose }: SizeGuideModalProps) {
         {/* Content */}
         <div className="p-6 md:p-8 overflow-y-auto max-h-[80vh]">
           <div className="mb-8">
-            <h3 className="text-lg font-semibold mb-2">Gildan Heavy Blend™ Hoodie</h3>
+            <h3 className="text-lg font-semibold mb-2">
+              Gildan Heavy Blend™ Hoodie
+            </h3>
             <p className="text-gray-600 text-sm">
-              Classic fit. Tubular body. Double-lined hood with color-matched drawcord.
+              Classic fit. Tubular body. Double-lined hood with color-matched
+              drawcord.
             </p>
           </div>
 
@@ -83,7 +100,9 @@ export function SizeGuideModal({ isOpen, onClose }: SizeGuideModalProps) {
                   <th className="px-4 py-3 rounded-l-lg">Size</th>
                   <th className="px-4 py-3">Width (in)</th>
                   <th className="px-4 py-3">Length (in)</th>
-                  <th className="px-4 py-3 rounded-r-lg">Sleeve Center Back (in)</th>
+                  <th className="px-4 py-3 rounded-r-lg">
+                    Sleeve Center Back (in)
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
@@ -134,7 +153,8 @@ export function SizeGuideModal({ isOpen, onClose }: SizeGuideModalProps) {
               <div className="space-y-2">
                 <span className="font-medium text-gray-900 block">Sleeve</span>
                 <p className="text-xs text-gray-600 leading-relaxed">
-                  Start at center of neck and measure down shoulder, down sleeve to hem.
+                  Start at center of neck and measure down shoulder, down sleeve
+                  to hem.
                 </p>
               </div>
             </div>

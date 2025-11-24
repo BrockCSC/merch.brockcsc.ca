@@ -37,9 +37,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body>
         <OrderProvider>
           <Nav />
-          <div className="mx-auto w-[75%] max-w-[1280px]">
-            {children}
-          </div>
+          <div className="mx-auto w-[75%] max-w-[1280px]">{children}</div>
         </OrderProvider>
         <ScrollRestoration />
         <Scripts />

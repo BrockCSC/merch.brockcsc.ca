@@ -1,23 +1,18 @@
 import type { Route } from "./+types/success";
-import { Link } from "react-router"
+import { Link } from "react-router";
 
-export function meta({ }: Route.MetaArgs) {
+export function meta({}: Route.MetaArgs) {
   return [
     { title: "Order Success - Merch Page" },
     { name: "description", content: "Your order has been placed successfully" },
   ];
 }
 
-export default function Success({
-  customerName = "Jay",
-  orderNumber = "999",
-}) {
-
+export default function Success({ customerName = "Jay", orderNumber = "999" }) {
   return (
     <main className="min-h-screen bg-neutral-100 flex items-center justify-center px-4 w-[100vw] ml-[calc(50%-50vw)] mr-[calc(50%-50vw)]">
       <section className="w-full max-w-2xl rounded-lg bg-white border border-neutral-200 shadow-sm py-10 px-6">
         <div className="flex flex-col items-center">
-
           {/* Logo */}
           <div className="mb-6">
             <a href="https://brockcsc.ca">
@@ -31,13 +26,13 @@ export default function Success({
 
           {/* Content */}
           <div className="w-full max-w-lg text-left">
-
             <h1 className="text-xl font-extrabold text-neutral-900 leading-snug mb-2">
               Your order has been confirmed!
             </h1>
 
             <p className="text-sm text-neutral-700 mt-1">
-              You&apos;ll receive an email confirmation shortly from from admin@brockcsc.ca.
+              You&apos;ll receive an email confirmation shortly from from
+              admin@brockcsc.ca.
             </p>
 
             <hr className="my-6 border-neutral-200" />
