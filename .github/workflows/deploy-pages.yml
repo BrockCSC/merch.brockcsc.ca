@@ -29,6 +29,8 @@ jobs:
         run: npm install
 
       - name: Build frontend
+        env:
+          VITE_STRIPE_PUBLISHABLE_KEY: ${{ secrets.STRIPE_PUBLISHABLE_KEY }}
         run: npm run build
 
       - name: Setup Pages
