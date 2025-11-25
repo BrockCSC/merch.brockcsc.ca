@@ -30,7 +30,7 @@ jobs:
 
       - name: Build frontend
         env:
-          VITE_STRIPE_PUBLISHABLE_KEY: pk_test_51SPYUmDKE3K4RyLKzWjFmmmg21dXrHI29a7i1WqZ77MZVkKedmLDL82bLZ9Kh5btk57s9AMZcNadITQkZhYvyr9200YOB8snWx
+          VITE_STRIPE_PUBLISHABLE_KEY: ${{ vars.VITE_STRIPE_PUBLISHABLE_KEY }}
         run: npm run build
 
       - name: Setup Pages
