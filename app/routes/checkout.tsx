@@ -18,9 +18,14 @@ export function meta({}: Route.MetaArgs) {
     { title: 'Checkout | BrockCSC Official Merch' },
     {
       name: 'description',
-      content: 'Complete your BrockCSC merchandise order. Secure checkout with Stripe payment processing. Free campus pickup available.',
+      content:
+        'Complete your BrockCSC merchandise order. Secure checkout with Stripe payment processing. Free campus pickup available.',
     },
-    { name: 'keywords', content: 'checkout, BrockCSC, merchandise, payment, secure checkout, Brock University, student merchandise' },
+    {
+      name: 'keywords',
+      content:
+        'checkout, BrockCSC, merchandise, payment, secure checkout, Brock University, student merchandise',
+    },
     { name: 'robots', content: 'noindex, nofollow' }, // Don't index checkout pages
     { name: 'canonical', content: `${baseUrl}/checkout` },
 
@@ -28,7 +33,11 @@ export function meta({}: Route.MetaArgs) {
     { property: 'og:type', content: 'website' },
     { property: 'og:url', content: `${baseUrl}/checkout` },
     { property: 'og:title', content: 'Checkout | BrockCSC Official Merch' },
-    { property: 'og:description', content: 'Complete your BrockCSC merchandise order with secure payment processing.' },
+    {
+      property: 'og:description',
+      content:
+        'Complete your BrockCSC merchandise order with secure payment processing.',
+    },
   ];
 }
 
@@ -108,16 +117,16 @@ export default function CheckoutRoute() {
                 '@type': 'ListItem',
                 position: 1,
                 name: 'Home',
-                item: window.location.origin
+                item: window.location.origin,
               },
               {
                 '@type': 'ListItem',
                 position: 2,
                 name: 'Checkout',
-                item: window.location.href
-              }
-            ]
-          })
+                item: window.location.href,
+              },
+            ],
+          }),
         }}
       />
 
@@ -207,7 +216,8 @@ export default function CheckoutRoute() {
                             orderItem.color.slice(1)}
                         </h1>
                         <h3>
-                          <span className="font-bold">Size:</span> {orderItem.size}
+                          <span className="font-bold">Size:</span>{' '}
+                          {orderItem.size}
                         </h3>
                       </div>
                       <h1>$45.00</h1>

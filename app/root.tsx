@@ -43,9 +43,14 @@ export function meta({}: Route.MetaArgs) {
     { title: 'BrockCSC Official Merch | Hoodies & Apparel' },
     {
       name: 'description',
-      content: 'Shop official Brock Computer Science Club merchandise. Premium hoodies, apparel, and accessories for BrockU students. Free campus pickup available.',
+      content:
+        'Shop official Brock Computer Science Club merchandise. Premium hoodies, apparel, and accessories for BrockU students. Free campus pickup available.',
     },
-    { name: 'keywords', content: 'BrockCSC, Brock University, Computer Science Club, merchandise, hoodie, apparel, students, campus, St. Catharines' },
+    {
+      name: 'keywords',
+      content:
+        'BrockCSC, Brock University, Computer Science Club, merchandise, hoodie, apparel, students, campus, St. Catharines',
+    },
     { name: 'author', content: 'Brock Computer Science Club' },
     { name: 'robots', content: 'index, follow' },
     { name: 'language', content: 'English' },
@@ -54,8 +59,15 @@ export function meta({}: Route.MetaArgs) {
     // Open Graph / Facebook
     { property: 'og:type', content: 'website' },
     { property: 'og:url', content: baseUrl },
-    { property: 'og:title', content: 'BrockCSC Official Merch | Hoodies & Apparel' },
-    { property: 'og:description', content: 'Shop official Brock Computer Science Club merchandise. Premium hoodies, apparel, and accessories for BrockU students.' },
+    {
+      property: 'og:title',
+      content: 'BrockCSC Official Merch | Hoodies & Apparel',
+    },
+    {
+      property: 'og:description',
+      content:
+        'Shop official Brock Computer Science Club merchandise. Premium hoodies, apparel, and accessories for BrockU students.',
+    },
     { property: 'og:image', content: `${baseUrl}/merch/black-m.png` },
     { property: 'og:image:width', content: '1200' },
     { property: 'og:image:height', content: '1200' },
@@ -65,8 +77,15 @@ export function meta({}: Route.MetaArgs) {
     // Twitter
     { name: 'twitter:card', content: 'summary_large_image' },
     { name: 'twitter:url', content: baseUrl },
-    { name: 'twitter:title', content: 'BrockCSC Official Merch | Hoodies & Apparel' },
-    { name: 'twitter:description', content: 'Shop official Brock Computer Science Club merchandise. Premium hoodies, apparel, and accessories for BrockU students.' },
+    {
+      name: 'twitter:title',
+      content: 'BrockCSC Official Merch | Hoodies & Apparel',
+    },
+    {
+      name: 'twitter:description',
+      content:
+        'Shop official Brock Computer Science Club merchandise. Premium hoodies, apparel, and accessories for BrockU students.',
+    },
     { name: 'twitter:image', content: `${baseUrl}/merch/black-m.png` },
 
     // Additional SEO
@@ -102,9 +121,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         />
         <OrderProvider>
           <Nav />
-          <main className="mx-auto w-[75%] max-w-[1280px]">
-            {children}
-          </main>
+          <main className="mx-auto w-[75%] max-w-[1280px]">{children}</main>
         </OrderProvider>
         <ScrollRestoration />
         <Scripts />

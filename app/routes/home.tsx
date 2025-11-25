@@ -12,17 +12,33 @@ export function meta({}: Route.MetaArgs) {
     { title: 'BrockCSC Official Hoodie | Premium Computer Science Club Merch' },
     {
       name: 'description',
-      content: 'Get the official BrockCSC hoodie. Premium heavyweight cotton hoodie with modern fit and durable embroidery. Available in Black and White. Free campus pickup at Brock University.',
+      content:
+        'Get the official BrockCSC hoodie. Premium heavyweight cotton hoodie with modern fit and durable embroidery. Available in Black and White. Free campus pickup at Brock University.',
     },
-    { name: 'keywords', content: 'BrockCSC hoodie, Brock University merchandise, computer science club apparel, premium hoodie, campus wear, St. Catharines, student merchandise' },
-    { name: 'robots', content: 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1' },
+    {
+      name: 'keywords',
+      content:
+        'BrockCSC hoodie, Brock University merchandise, computer science club apparel, premium hoodie, campus wear, St. Catharines, student merchandise',
+    },
+    {
+      name: 'robots',
+      content:
+        'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1',
+    },
     { name: 'canonical', content: baseUrl },
 
     // Open Graph
     { property: 'og:type', content: 'product' },
     { property: 'og:url', content: baseUrl },
-    { property: 'og:title', content: 'BrockCSC Official Hoodie | Premium Computer Science Club Merch' },
-    { property: 'og:description', content: 'Premium heavyweight cotton hoodie with modern fit and durable embroidery. Available in Black and White. Free campus pickup.' },
+    {
+      property: 'og:title',
+      content: 'BrockCSC Official Hoodie | Premium Computer Science Club Merch',
+    },
+    {
+      property: 'og:description',
+      content:
+        'Premium heavyweight cotton hoodie with modern fit and durable embroidery. Available in Black and White. Free campus pickup.',
+    },
     { property: 'og:image', content: `${baseUrl}/merch/black-m.png` },
     { property: 'og:image:alt', content: 'BrockCSC Official Hoodie in Black' },
     { property: 'og:price:amount', content: '45.00' },
@@ -31,8 +47,15 @@ export function meta({}: Route.MetaArgs) {
 
     // Twitter
     { name: 'twitter:card', content: 'summary_large_image' },
-    { name: 'twitter:title', content: 'BrockCSC Official Hoodie | Premium Computer Science Club Merch' },
-    { name: 'twitter:description', content: 'Premium heavyweight cotton hoodie with modern fit and durable embroidery. Available in Black and White.' },
+    {
+      name: 'twitter:title',
+      content: 'BrockCSC Official Hoodie | Premium Computer Science Club Merch',
+    },
+    {
+      name: 'twitter:description',
+      content:
+        'Premium heavyweight cotton hoodie with modern fit and durable embroidery. Available in Black and White.',
+    },
     { name: 'twitter:image', content: `${baseUrl}/merch/black-m.png` },
 
     // Product structured data
@@ -40,34 +63,35 @@ export function meta({}: Route.MetaArgs) {
       'script:ld+json': {
         '@context': 'https://schema.org',
         '@type': 'Product',
-        'name': 'BrockCSC Official Hoodie',
-        'description': 'The official hoodie of the Brock Computer Science Club. Made with premium heavyweight cotton for maximum comfort during those late-night coding sessions. Features a modern fit and durable embroidery.',
-        'image': [
+        name: 'BrockCSC Official Hoodie',
+        description:
+          'The official hoodie of the Brock Computer Science Club. Made with premium heavyweight cotton for maximum comfort during those late-night coding sessions. Features a modern fit and durable embroidery.',
+        image: [
           `${baseUrl}/merch/black-m.png`,
           `${baseUrl}/merch/black-f.png`,
           `${baseUrl}/merch/white-m.png`,
-          `${baseUrl}/merch/white-f.png`
+          `${baseUrl}/merch/white-f.png`,
         ],
-        'brand': {
+        brand: {
           '@type': 'Organization',
-          'name': 'Brock Computer Science Club',
-          'url': 'https://brockcsc.ca'
+          name: 'Brock Computer Science Club',
+          url: 'https://brockcsc.ca',
         },
-        'offers': {
+        offers: {
           '@type': 'Offer',
-          'price': '45.00',
-          'priceCurrency': 'CAD',
-          'availability': 'https://schema.org/InStock',
-          'seller': {
+          price: '45.00',
+          priceCurrency: 'CAD',
+          availability: 'https://schema.org/InStock',
+          seller: {
             '@type': 'Organization',
-            'name': 'Brock Computer Science Club'
-          }
+            name: 'Brock Computer Science Club',
+          },
         },
-        'category': 'Apparel & Accessories > Clothing > Outerwear > Hoodies',
-        'material': 'Heavyweight Cotton',
-        'color': ['Black', 'White'],
-        'size': ['S', 'M', 'L', 'XL']
-      }
+        category: 'Apparel & Accessories > Clothing > Outerwear > Hoodies',
+        material: 'Heavyweight Cotton',
+        color: ['Black', 'White'],
+        size: ['S', 'M', 'L', 'XL'],
+      },
     },
 
     // Organization structured data
@@ -75,14 +99,12 @@ export function meta({}: Route.MetaArgs) {
       'script:ld+json': {
         '@context': 'https://schema.org',
         '@type': 'Organization',
-        'name': 'Brock Computer Science Club',
-        'url': 'https://brockcsc.ca',
-        'logo': `${baseUrl}/assets/logo-black.svg`,
-        'sameAs': [
-          'https://brockcsc.ca'
-        ]
-      }
-    }
+        name: 'Brock Computer Science Club',
+        url: 'https://brockcsc.ca',
+        logo: `${baseUrl}/assets/logo-black.svg`,
+        sameAs: ['https://brockcsc.ca'],
+      },
+    },
   ];
 }
 
@@ -191,12 +213,12 @@ export default function Home() {
               `${window.location.origin}/merch/black-m.png`,
               `${window.location.origin}/merch/black-f.png`,
               `${window.location.origin}/merch/white-m.png`,
-              `${window.location.origin}/merch/white-f.png`
+              `${window.location.origin}/merch/white-f.png`,
             ],
             brand: {
               '@type': 'Organization',
               name: 'Brock Computer Science Club',
-              url: 'https://brockcsc.ca'
+              url: 'https://brockcsc.ca',
             },
             offers: {
               '@type': 'Offer',
@@ -205,14 +227,14 @@ export default function Home() {
               availability: 'https://schema.org/InStock',
               seller: {
                 '@type': 'Organization',
-                name: 'Brock Computer Science Club'
-              }
+                name: 'Brock Computer Science Club',
+              },
             },
             category: 'Apparel & Accessories > Clothing > Outerwear > Hoodies',
             material: 'Heavyweight Cotton',
-            color: PRODUCT.colors.map(c => c.name),
-            size: PRODUCT.sizes
-          })
+            color: PRODUCT.colors.map((c) => c.name),
+            size: PRODUCT.sizes,
+          }),
         }}
       />
 
@@ -225,10 +247,8 @@ export default function Home() {
             name: 'Brock Computer Science Club',
             url: 'https://brockcsc.ca',
             logo: `${window.location.origin}/assets/logo-black.svg`,
-            sameAs: [
-              'https://brockcsc.ca'
-            ]
-          })
+            sameAs: ['https://brockcsc.ca'],
+          }),
         }}
       />
 
