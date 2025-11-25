@@ -69,7 +69,7 @@ export default function CheckoutRoute() {
 
         {/* Use div instead of form to avoid nested-form/hydration issues */}
         <div id="payment-section">
-          <div className="mb-4 flex flex-col gap-2">
+          <div className="contact-info mb-4 flex flex-col gap-2">
             <div className="flex justify-between relative left-0.5 right-0.5 ml-[-13vw] w-screen bg-[#aa3b3b] px-12 py-4 md:hidden">
               <button
                 onClick={() => setOpen(true)}
@@ -77,7 +77,7 @@ export default function CheckoutRoute() {
               >
                 Order Summary <MdKeyboardArrowUp />
               </button>
-              <h1 className="text-white">$60.00</h1>
+              <h1 className="text-white">$45.00</h1>
             </div>
 
             <h1 className="text-[#aa3b3b] font-bold mb-2">Contact Information</h1>
