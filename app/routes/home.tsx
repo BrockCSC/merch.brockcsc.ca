@@ -85,14 +85,21 @@ export default function Home() {
         onClose={() => setIsSizeGuideOpen(false)}
       />
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center w-full">
         {/* Image Section */}
-        <div className="flex flex-col gap-4">
-          <div className="relative group rounded-3xl overflow-hidden bg-gray-50 aspect-square lg:aspect-[4/5] flex items-center justify-center shadow-sm">
+        <div className="image-container flex flex-col gap-4">
+          <div className="relative group rounded-3xl overflow-hidden bg-gray-50 aspect-square md:aspect-[4/5] flex items-center justify-center shadow-sm">
             <img
-              src={currentImages[currentImageIndex]}
-              alt={`${PRODUCT.name} in ${selectedColor}`}
-              className="w-full h-full object-contain object-center transition-all duration-500 group-hover:scale-105"
+              src={currentImages[0]}
+              alt={`${PRODUCT.name} in ${selectedColor} view 1`}
+              className="absolute inset-0 w-full h-full object-contain object-center transition-all duration-500 group-hover:scale-105"
+              style={{ opacity: currentImageIndex === 0 ? 1 : 0, transition: 'opacity 1s' }}
+            />
+            <img
+              src={currentImages[1]}
+              alt={`${PRODUCT.name} in ${selectedColor} view 2`}
+              className="absolute inset-0 w-full h-full object-contain object-center transition-all duration-500 group-hover:scale-105"
+              style={{ opacity: currentImageIndex === 1 ? 1 : 0, transition: 'opacity 1s' }}
             />
           </div>
 
