@@ -56,6 +56,12 @@ export default function CheckoutRoute() {
     }
   };
 
+  useEffect(() => {
+    animate('.checkout-title', { opacity: [0, 1], y: [20, 0] }, { duration: 0.8, delay: 0.2 });
+    animate('.contact-info', { opacity: [0, 1], y: [20, 0] }, { duration: 0.8, delay: 0.4 });
+    animate('.order-summary', { opacity: [0, 1], y: [20, 0] }, { duration: 0.8, delay: 0.6 });
+  }, []);
+
   return (
     <div className="w-full md:flex spa md:max-w-full md:gap-10 md:justify-center ">
       <div className="w-full flex flex-col justify-center">
