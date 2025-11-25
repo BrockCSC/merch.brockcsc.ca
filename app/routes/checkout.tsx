@@ -65,7 +65,7 @@ export default function CheckoutRoute() {
   return (
     <div className="w-full md:flex spa md:max-w-full md:gap-10 md:justify-center ">
       <div className="w-full flex flex-col justify-center">
-        <h1 className="text-4xl my-4">Checkout</h1>
+        <h1 className="checkout-title text-4xl my-4">Checkout</h1>
 
         {/* Use div instead of form to avoid nested-form/hydration issues */}
         <div id="payment-section">
@@ -154,25 +154,22 @@ export default function CheckoutRoute() {
         </MobileDrawer>
       </div>
 
-      <div className="hidden md:bg-slate-50 md:w-[60%] md:flex md:flex-col md:items-center ">
+      <div className="order-summary hidden md:bg-slate-50 md:w-[60%] md:flex md:flex-col md:items-center ">
         <div className="flex flex-col w-full h-full">
           <h1 className="text-4xl my-4 text-center">Order Summary</h1>
           <div className="flex flex-col justify-between h-full">
             <div className="w-full flex justify-around items-center">
-              <button className="cursor-hover">
-                <RiDeleteBin5Line size={24} />
-              </button>
-              <img className="bg-gray-500 rounded-4xl p-6" alt="" />
+              <img src={`/merch/${orderItem.color}-${orderItem.imageIndex === 0 ? 'm' : 'f'}.png`} alt="Selected hoodie" className="w-16 h-16 rounded-4xl object-cover" />
               <div>
-                <h1>Item 1</h1>
-                <h3>Size: M</h3>
+                <h1><span className="font-bold">Color:</span> {orderItem.color.charAt(0).toUpperCase() + orderItem.color.slice(1)}</h1>
+                <h3><span className="font-bold">Size:</span> {orderItem.size}</h3>
               </div>
-              <h1>$500.00</h1>
+              <h1>$45.00</h1>
             </div>
             <div className="flex flex-col justify-end px-4 pb-6 gap-2">
               <div className="flex justify-between">
                 <h1>Subtotal</h1>
-                <div></div>
+                <div>$45.00</div>
               </div>
             </div>
           </div>
