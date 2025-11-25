@@ -1,12 +1,12 @@
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import Checkout from "~/components/Checkout/Checkout";
-import { RiDeleteBin5Line } from "react-icons/ri";
 import { MdKeyboardArrowUp } from "react-icons/md";
 import { MobileDrawer } from "~/components/MobileDrawer/MobileDrawer";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useOrder } from "~/context/order-context";
+import { animate } from 'motion';
 
 const stripePromise = loadStripe(
   "pk_test_51SPYUmDKE3K4RyLKzWjFmmmg21dXrHI29a7i1WqZ77MZVkKedmLDL82bLZ9Kh5btk57s9AMZcNadITQkZhYvyr9200YOB8snWx"
