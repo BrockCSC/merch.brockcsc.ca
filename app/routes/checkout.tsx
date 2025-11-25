@@ -27,7 +27,7 @@ export function meta({}: Route.MetaArgs) {
         'checkout, BrockCSC, merchandise, payment, secure checkout, Brock University, student merchandise',
     },
     { name: 'robots', content: 'noindex, nofollow' }, // Don't index checkout pages
-    { name: 'canonical', content: `${baseUrl}/checkout` },
+    { rel: 'canonical', href: `${baseUrl}/checkout` },
 
     // Open Graph
     { property: 'og:type', content: 'website' },

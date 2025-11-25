@@ -17,7 +17,7 @@ export function meta({}: Route.MetaArgs) {
         'order confirmation, BrockCSC, merchandise, order success, Brock University, student merchandise',
     },
     { name: 'robots', content: 'noindex, nofollow' }, // Don't index success pages
-    { name: 'canonical', content: `${baseUrl}/success` },
+    { rel: 'canonical', href: `${baseUrl}/success` },
 
     // Open Graph
     { property: 'og:type', content: 'website' },

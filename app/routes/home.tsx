@@ -15,6 +15,9 @@ export function meta({}: Route.MetaArgs) {
       content:
         'Get the official BrockCSC hoodie. Premium heavyweight cotton hoodie with modern fit and durable embroidery. Available in Black and White. Free campus pickup at Brock University.',
     },
+    { name: 'keywords', content: 'BrockCSC hoodie, Brock University merchandise, computer science club apparel, premium hoodie, campus wear, St. Catharines, student merchandise' },
+    { name: 'robots', content: 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1' },
+    { rel: 'canonical', href: baseUrl },
     {
       name: 'keywords',
       content:
