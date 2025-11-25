@@ -38,7 +38,10 @@ export default function Nav() {
   const underlineTiming = 'cubic-bezier(0.35, 0, 0.25, 1)';
 
   const renderNavLinkContent = (label: string, isActive?: boolean) => (
-    <span className="relative inline-block leading-[25px]" style={{ boxSizing: 'content-box' }}>
+    <span
+      className="relative inline-block leading-[25px]"
+      style={{ boxSizing: 'content-box' }}
+    >
       <span>{label}</span>
       <span
         className={classNames(
@@ -87,7 +90,14 @@ export default function Nav() {
           </div>
           <nav className="flex items-center gap-[21.6px]">
             <Link to="https://brockcsc.ca/links" className="flex items-center">
-              <button className="inline-block bg-[#aa3b3b] px-6 pt-[6.75px] pb-[9px] text-lg font-normal text-[rgba(255,255,255,0.9)] cursor-pointer hover:bg-[#8e3232] leading-[20.7px] transition-[background-color] duration-200" style={{ boxSizing: 'content-box', fontFamily: 'sans-serif', transitionTimingFunction: 'cubic-bezier(0.35, 0, 0.25, 1)' }}>
+              <button
+                className="inline-block bg-[#aa3b3b] px-6 pt-[6.75px] pb-[9px] text-lg font-normal text-[rgba(255,255,255,0.9)] cursor-pointer hover:bg-[#8e3232] leading-[20.7px] transition-[background-color] duration-200"
+                style={{
+                  boxSizing: 'content-box',
+                  fontFamily: 'sans-serif',
+                  transitionTimingFunction: 'cubic-bezier(0.35, 0, 0.25, 1)',
+                }}
+              >
                 Join
               </button>
             </Link>
@@ -129,7 +139,14 @@ export default function Nav() {
               />
             </Link>
             <Link to="/links">
-              <button className="ml-8 inline-block bg-[#aa3b3b] px-10 pt-1.5 pb-2 text-base font-normal text-[rgba(255,255,255,0.9)] cursor-pointer hover:bg-[#8e3232] leading-[18.4px] transition-[background-color] duration-200" style={{ boxSizing: 'content-box', fontFamily: 'sans-serif', transitionTimingFunction: 'cubic-bezier(0.35, 0, 0.25, 1)' }}>
+              <button
+                className="ml-8 inline-block bg-[#aa3b3b] px-10 pt-1.5 pb-2 text-base font-normal text-[rgba(255,255,255,0.9)] cursor-pointer hover:bg-[#8e3232] leading-[18.4px] transition-[background-color] duration-200"
+                style={{
+                  boxSizing: 'content-box',
+                  fontFamily: 'sans-serif',
+                  transitionTimingFunction: 'cubic-bezier(0.35, 0, 0.25, 1)',
+                }}
+              >
                 Join
               </button>
             </Link>
@@ -140,7 +157,7 @@ export default function Nav() {
             aria-label="Toggle navigation menu"
             aria-expanded={showOverlay}
             onClick={() => setShowOverlay((prev) => !prev)}
-            style={{ 
+            style={{
               boxSizing: 'content-box',
               fontFamily: 'Lato, sans-serif',
               fontSize: '16px',
@@ -148,7 +165,7 @@ export default function Nav() {
               lineHeight: '25px',
               height: '15px',
               width: '20px',
-              perspective: '40px'
+              perspective: '40px',
             }}
           >
             <span className="sr-only">Open menu</span>
