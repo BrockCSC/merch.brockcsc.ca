@@ -13,6 +13,8 @@ import Nav from './components/Nav/Nav';
 import { OrderProvider } from './context/order-context';
 
 export const links: Route.LinksFunction = () => [
+  { rel: 'icon', href: '/assets/logo-black.svg', media: '(prefers-color-scheme: light)' },
+  { rel: 'icon', href: '/assets/logo.svg', media: '(prefers-color-scheme: dark)' },
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
   {
     rel: 'preconnect',
