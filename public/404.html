@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Page Not Found - BrockCSC Merch</title>
+    <style>
+      body {
+        font-family: 'Lato', sans-serif;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #f5f5f5 0%, #e5e5e5 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+      }
+      .container {
+        width: 100%;
+        max-width: 32rem;
+        background-color: white;
+        border: 1px solid #d1d5db;
+        border-radius: 0.75rem;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        padding: 3rem 2rem;
+        text-align: center;
+      }
+      .logo {
+        margin-bottom: 2rem;
+        animation: fadeIn 1s ease-in;
+        text-align: center;
+      }
+      .logo img {
+        width: 120px;
+        display: block;
+        margin: 0 auto;
+      }
+      .title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #111827;
+        margin-bottom: 1rem;
+        animation: slideIn 1s ease-out 0.2s both;
+      }
+      .description {
+        font-size: 1rem;
+        color: #6b7280;
+        margin-bottom: 2rem;
+        animation: slideIn 1s ease-out 0.4s both;
+      }
+      .button {
+        display: inline-block;
+        background: linear-gradient(135deg, #aa3b3b 0%, #d9534f 100%);
+        color: white;
+        padding: 0.75rem 2rem;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 14px rgba(170, 59, 59, 0.3);
+        animation: slideIn 1s ease-out 0.6s both;
+      }
+      .button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(170, 59, 59, 0.4);
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+    <script type="text/javascript">
+      var path = window.location.pathname;
+      if (path !== '/') {
+        window.location.replace('/?' + path.slice(1));
+      }
+    </script>
+  </head>
+  <body>
+    <section class="container">
+      <div class="logo">
+        <a href="/">
+          <img
+            src="/assets/logo-black.svg"
+            alt="Brock Computer Science Club Logo"
+          />
+        </a>
+      </div>
+
+      <div>
+        <h1 class="title">404 - Page Not Found</h1>
+
+        <p class="description">The page you're looking for doesn't exist.</p>
+
+        <a href="/" class="button"> Go Home </a>
+      </div>
+    </section>
+  </body>
+</html>
