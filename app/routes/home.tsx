@@ -387,7 +387,7 @@ export default function Home() {
             </div>
 
             {/* Actions */}
-            <div className="actions pt-6 max-w-md">
+            <div className="actions pt-6 pb-8 md:pb-0 max-w-md">
               <button
                 onClick={() => {
                   setOrderItem({
