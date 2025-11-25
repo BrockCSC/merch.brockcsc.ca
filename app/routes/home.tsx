@@ -182,7 +182,7 @@ export default function Home() {
                 </span>
               </div>
               <div className="flex gap-4">
-                {PRODUCT.colors.map((color, index) => (
+                {PRODUCT.colors.map((color) => (
                   <button
                     key={color.id}
                     onClick={() =>
@@ -213,7 +213,7 @@ export default function Home() {
                 </button>
               </div>
               <div className="grid grid-cols-4 gap-3 max-w-md">
-                {PRODUCT.sizes.map((size, index) => (
+                {PRODUCT.sizes.map((size) => (
                   <button
                     key={size}
                     onClick={() => setSelectedSize(size)}
