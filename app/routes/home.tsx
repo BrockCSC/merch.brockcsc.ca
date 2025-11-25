@@ -128,36 +128,36 @@ export default function Home() {
         {/* Details Section */}
         <div className="flex flex-col space-y-8 px-4 lg:px-0">
           <div className="space-y-4">
-            <h1 className="text-4xl lg:text-5xl font-bold tracking-tight text-gray-900">
+            <h1 className="title text-4xl md:text-5xl font-bold tracking-tight text-gray-900">
               {PRODUCT.name}
             </h1>
-            <p className="text-2xl font-medium text-[#aa3b3b]">
+            <p className="price text-2xl font-medium text-[#aa3b3b]">
               ${PRODUCT.price.toFixed(2)}
             </p>
-            <p className="text-lg text-gray-600 leading-relaxed max-w-md">
+            <p className="description text-lg text-gray-600 leading-relaxed max-w-md">
               {PRODUCT.description}
             </p>
           </div>
 
           <div className="space-y-6">
             {/* Color Selector */}
-            <div className="space-y-3">
+            <div className="color-selector space-y-3">
               <div className="flex items-center">
                 <span className="text-sm font-medium text-gray-900 uppercase tracking-wider">
                   Color
                 </span>
               </div>
               <div className="flex gap-4">
-                {PRODUCT.colors.map((color) => (
+                {PRODUCT.colors.map((color, index) => (
                   <button
                     key={color.id}
                     onClick={() =>
                       handleColorChange(color.id as 'white' | 'black')
                     }
-                    className={`w-12 h-12 rounded-full border-2 transition-all duration-300 focus:outline-none ring-2 ring-offset-2 ${color.class} ${
+                    className={`w-12 h-12 rounded-full border-2 transition-all duration-300 focus:outline-none ring-2 ring-offset-2 cursor-pointer ${color.class} ${
                       selectedColor === color.id
                         ? 'ring-[#aa3b3b] scale-110'
-                        : 'ring-transparent hover:scale-105'
+                        : 'ring-transparent hover:scale-105 hover:ring-[#aa3b3b]/50'
                     }`}
                     aria-label={`Select ${color.name}`}
                   />
