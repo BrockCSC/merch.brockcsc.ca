@@ -95,33 +95,36 @@ export default function CheckoutRoute() {
             </h1>
 
             <input
-              className="peer shadow appearance-none border rounded w-full py-2 px-3 text-grey"
+              className="peer shadow appearance-none border rounded w-full py-2 px-3 text-grey disabled:opacity-50 disabled:cursor-not-allowed"
               required
               type="email"
               id="email"
               value={email}
               placeholder="Email"
               onChange={(e) => setEmail(e.target.value)}
+              disabled={!!clientSecret}
             />
 
             <input
-              className="peer shadow appearance-none border rounded w-full py-2 px-3 text-grey"
+              className="peer shadow appearance-none border rounded w-full py-2 px-3 text-grey disabled:opacity-50 disabled:cursor-not-allowed"
               required
               type="text"
               id="name"
               value={name}
               placeholder="Name"
               onChange={(e) => setName(e.target.value)}
+              disabled={!!clientSecret}
             />
 
             <input
-              className="peer shadow appearance-none border rounded w-full py-2 px-3 text-grey"
+              className="peer shadow appearance-none border rounded w-full py-2 px-3 text-grey disabled:opacity-50 disabled:cursor-not-allowed"
               required
               type="text"
               id="stdNum"
               value={stdNum}
               placeholder="Student Number"
               onChange={(e) => setStdNum(e.target.value)}
+              disabled={!!clientSecret}
             />
 
             {!clientSecret && (
