@@ -173,20 +173,20 @@ export default function Home() {
                 </span>
                 <button
                   onClick={() => setIsSizeGuideOpen(true)}
-                  className="text-sm text-gray-500 underline hover:text-[#aa3b3b] transition-colors"
+                  className="text-sm text-gray-500 underline hover:text-[#aa3b3b] transition-colors cursor-pointer"
                 >
                   Size Guide
                 </button>
               </div>
               <div className="grid grid-cols-4 gap-3 max-w-md">
-                {PRODUCT.sizes.map((size) => (
+                {PRODUCT.sizes.map((size, index) => (
                   <button
                     key={size}
                     onClick={() => setSelectedSize(size)}
-                    className={`h-12 rounded-xl border font-medium text-sm transition-all duration-200 ${
+                    className={`h-12 rounded-xl border font-medium text-sm transition-all duration-200 cursor-pointer ${
                       selectedSize === size
                         ? 'border-[#aa3b3b] bg-[#aa3b3b] text-white shadow-md'
-                        : 'border-gray-200 text-gray-900 hover:border-[#aa3b3b]'
+                        : 'border-gray-200 text-gray-900 hover:border-[#aa3b3b] hover:bg-[#aa3b3b]/10'
                     }`}
                   >
                     {size}
