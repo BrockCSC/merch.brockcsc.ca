@@ -18,7 +18,7 @@ export function meta({}: Route.MetaArgs) {
 
 const PRODUCT = {
   name: 'BrockCSC Hoodie',
-  price: 50.0,
+  price: 45.0,
   description:
     'The official hoodie of the Brock Computer Science Club. Made with premium heavyweight cotton for maximum comfort during those late-night coding sessions. Features a modern fit and durable embroidery.',
   colors: [
