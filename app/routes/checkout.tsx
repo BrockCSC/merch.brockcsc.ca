@@ -1,9 +1,8 @@
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
-import Checkout from "~/components/Checkout/Checkout";
-import { RiDeleteBin5Line } from "react-icons/ri";
-import { MdKeyboardArrowUp } from "react-icons/md";
-import { MobileDrawer } from "~/components/MobileDrawer/MobileDrawer";
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+import Checkout from '~/components/Checkout/Checkout';
+import { useEffect, useState } from 'react';
+import { data } from 'react-router';
 
 import { useState } from "react";
 import { useOrder } from "~/context/order-context";
@@ -12,42 +11,22 @@ const stripePromise = loadStripe(
   "pk_test_51SPYUmDKE3K4RyLKzWjFmmmg21dXrHI29a7i1WqZ77MZVkKedmLDL82bLZ9Kh5btk57s9AMZcNadITQkZhYvyr9200YOB8snWx"
 );
 export default function CheckoutRoute() {
-  const { orderItem } = useOrder();
-  const [open, setOpen] = useState(false);
-  const [name, setName] = useState<string | "">("");
-  const [email, setEmail] = useState<string | "">("");
-  const [stdNum, setStdNum] = useState<string | "">("");
+  const stripePromise = loadStripe(
+    'pk_live_51SPYUmDKE3K4RyLK3etexVTMhi70dd9zd3q5IIEobhRvFU8qTjSgGB5w2C7cm4sq5zhohbUufsYB14z3PMl7Gt2Q00G61mdg2k'
+  );
 
   const [clientSecret, setClientSecret] = useState<string | null>(null);
 
-  if (!orderItem) return <p>No order found. Please go back</p>;
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (!name || !email || !stdNum || !orderItem) {
-      return;
-    }
-
-    const payload = {
-      name: name,
-      studentId: parseInt(stdNum),
-      email: email,
-      color: orderItem.color,
-      size: orderItem.size,
-    };
-
-    const response = await fetch(
-      "https://merch-backend.brockcsc.workers.dev/",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      }
-    );
-
-    const data = await response.json();
-    setClientSecret(data.clientSecret);
+  useEffect(() => {
+    fetch('https://merch-backend.brockcsc.workers.dev/', {
+      method: 'POST',
+    })
+      .then((response) => response.json())
+      .then((data) => setClientSecret(data.clientSecret));
+    console.log(data);
+  }, []);
+  console.log(clientSecret);
+  //if (!clientSecret) return <p>Loading payment info...</p>;
 
     setTimeout(() => {
       console.log(data.clientSecret);
