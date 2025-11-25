@@ -136,19 +136,16 @@ export default function CheckoutRoute() {
               <h1 className="text-4xl my-4 text-center">Order Summary</h1>
               <div className="flex flex-col justify-between h-full">
                 <div className="w-full flex justify-around items-center">
-                  <button className="cursor-hover">
-                    <RiDeleteBin5Line size={24} />
-                  </button>
                   <div>
-                    <h1>Colour: {orderItem.color}</h1>
-                    <h3>Size: {orderItem.size}</h3>
+                    <h1><span className="font-bold">Color:</span> {orderItem.color.charAt(0).toUpperCase() + orderItem.color.slice(1)}</h1>
+                    <h3><span className="font-bold">Size:</span> {orderItem.size}</h3>
                   </div>
-                  <h1>$60.00</h1>
+                  <h1>$45.00</h1>
                 </div>
                 <div className="flex flex-col justify-end px-4 pb-6 gap-2">
                   <div className="flex justify-between">
                     <h1>Subtotal:</h1>
-                    <div>60.00</div>
+                    <div>45.00</div>
                   </div>
                 </div>
               </div>
