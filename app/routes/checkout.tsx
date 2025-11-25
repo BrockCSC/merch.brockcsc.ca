@@ -9,7 +9,7 @@ import { useState } from "react";
 import { useOrder } from "~/context/order-context";
 
 const stripePromise = loadStripe(
-  "pk_live_51SPYUmDKE3K4RyLK3etexVTMhi70dd9zd3q5IIEobhRvFU8qTjSgGB5w2C7cm4sq5zhohbUufsYB14z3PMl7Gt2Q00G61mdg2k"
+  "pk_test_51SPYUmDKE3K4RyLKzWjFmmmg21dXrHI29a7i1WqZ77MZVkKedmLDL82bLZ9Kh5btk57s9AMZcNadITQkZhYvyr9200YOB8snWx"
 );
 export default function CheckoutRoute() {
   const { orderItem } = useOrder();
@@ -108,18 +108,17 @@ export default function CheckoutRoute() {
               </button>
             )}
           </div>
-          {clientSecret && (
-            <Elements
-              stripe={stripePromise}
-              options={{
-                clientSecret,
-              }}
-            >
-              x
-              <Checkout />
-            </Elements>
-          )}
         </form>
+        {clientSecret && (
+          <Elements
+            stripe={stripePromise}
+            options={{
+              clientSecret,
+            }}
+          >
+            <Checkout />
+          </Elements>
+        )}
         <MobileDrawer open={open} setOpen={setOpen}>
           <div className="h-full">
             <div className="flex flex-col w-full h-full">
