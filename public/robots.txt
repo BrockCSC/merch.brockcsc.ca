@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Block checkout and success pages from indexing
+Disallow: /checkout
+Disallow: /success
+
+# Sitemap
+Sitemap: https://merch.brockcsc.ca/sitemap.xml
