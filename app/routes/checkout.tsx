@@ -8,9 +8,7 @@ import { useState, useEffect } from 'react';
 import { useOrder } from '~/context/order-context';
 import { animate } from 'motion';
 
-const stripePromise = loadStripe(
-  'pk_test_51SPYUmDKE3K4RyLKzWjFmmmg21dXrHI29a7i1WqZ77MZVkKedmLDL82bLZ9Kh5btk57s9AMZcNadITQkZhYvyr9200YOB8snWx'
-);
+const stripePromise = loadStripe(import.meta.env.STRIPE_PUBLISHABLE_KEY);
 
 export default function CheckoutRoute() {
   const { orderItem } = useOrder();
