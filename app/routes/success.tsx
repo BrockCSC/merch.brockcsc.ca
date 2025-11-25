@@ -44,10 +44,10 @@ export default function Success() {
             <p className="text-sm text-neutral-700">
               If you have any questions, contact us at{' '}
               <a
-                href={`mailto: brockcsc@gmail.com`}
+                href={`mailto: admin@brockcsc.ca`}
                 className="text-blue-600 underline"
               >
-                brockcsc@gmail.com
+                admin@brockcsc.ca
               </a>{' '}
               or reach out to an executive through Discord.
             </p>
