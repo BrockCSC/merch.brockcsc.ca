@@ -54,6 +54,25 @@ export default function Home() {
     setCurrentImageIndex(0);
   };
 
+  // Auto-swap images every 5 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % 2);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Landing animations
+  useEffect(() => {
+    animate('.image-container', { opacity: [0, 1], scale: [0.9, 1] }, { duration: 0.8, delay: 0.1 });
+    animate('.title', { opacity: [0, 1], y: [20, 0] }, { duration: 0.8, delay: 0.2 });
+    animate('.price', { opacity: [0, 1], y: [20, 0] }, { duration: 0.8, delay: 0.4 });
+    animate('.description', { opacity: [0, 1], y: [20, 0] }, { duration: 0.8, delay: 0.6 });
+    animate('.color-selector', { opacity: [0, 1], y: [20, 0] }, { duration: 0.8, delay: 0.8 });
+    animate('.size-selector', { opacity: [0, 1], y: [20, 0] }, { duration: 0.8, delay: 1.0 });
+    animate('.actions', { opacity: [0, 1], y: [20, 0] }, { duration: 0.8, delay: 1.2 });
+  }, []);
+
   const currentImages = [
     PRODUCT.images[selectedColor].m,
     PRODUCT.images[selectedColor].f,
