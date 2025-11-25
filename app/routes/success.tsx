@@ -2,15 +2,61 @@ import type { Route } from './+types/success';
 import { Link } from 'react-router';
 
 export function meta({}: Route.MetaArgs) {
+  const baseUrl = 'https://merch.brockcsc.ca';
+
   return [
-    { title: 'Order Success - Merch Page' },
-    { name: 'description', content: 'Your order has been placed successfully' },
+    { title: 'Order Confirmed | BrockCSC Merch' },
+    {
+      name: 'description',
+      content: 'Your BrockCSC merchandise order has been successfully placed. Check your email for confirmation details. Free campus pickup available.',
+    },
+    { name: 'keywords', content: 'order confirmation, BrockCSC, merchandise, order success, Brock University, student merchandise' },
+    { name: 'robots', content: 'noindex, nofollow' }, // Don't index success pages
+    { name: 'canonical', content: `${baseUrl}/success` },
+
+    // Open Graph
+    { property: 'og:type', content: 'website' },
+    { property: 'og:url', content: `${baseUrl}/success` },
+    { property: 'og:title', content: 'Order Confirmed | BrockCSC Merch' },
+    { property: 'og:description', content: 'Your BrockCSC merchandise order has been successfully placed.' },
   ];
 }
 
 export default function Success() {
   return (
-    <main className="min-h-screen bg-neutral-100 flex items-center justify-center px-4 w-[100vw] ml-[calc(50%-50vw)] mr-[calc(50%-50vw)]">
+    <>
+      {/* Breadcrumb structured data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              {
+                '@type': 'ListItem',
+                position: 1,
+                name: 'Home',
+                item: window.location.origin
+              },
+              {
+                '@type': 'ListItem',
+                position: 2,
+                name: 'Checkout',
+                item: window.location.origin + '/checkout'
+              },
+              {
+                '@type': 'ListItem',
+                position: 3,
+                name: 'Order Success',
+                item: window.location.href
+              }
+            ]
+          })
+        }}
+      />
+
+      <main className="min-h-screen bg-neutral-100 flex items-center justify-center px-4 w-[100vw] ml-[calc(50%-50vw)] mr-[calc(50%-50vw)]">
       <section className="w-full max-w-2xl rounded-lg bg-white border border-neutral-200 shadow-sm py-10 px-6">
         <div className="flex flex-col items-center">
           {/* Logo */}
@@ -65,5 +111,6 @@ export default function Success() {
         </div>
       </section>
     </main>
+    </>
   );
 }
