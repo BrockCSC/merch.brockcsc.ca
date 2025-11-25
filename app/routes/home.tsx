@@ -166,7 +166,7 @@ export default function Home() {
             </div>
 
             {/* Size Selector */}
-            <div className="space-y-3">
+            <div className="size-selector space-y-3">
               <div className="flex justify-between items-center max-w-md">
                 <span className="text-sm font-medium text-gray-900 uppercase tracking-wider">
                   Size
@@ -197,16 +197,17 @@ export default function Home() {
           </div>
 
           {/* Actions */}
-          <div className="pt-6 max-w-md">
+          <div className="actions pt-6 max-w-md">
             <button
               onClick={() => {
                 setOrderItem({
                   color: selectedColor,
                   size: selectedSize,
+                  imageIndex: currentImageIndex,
                 });
                 navigate('/checkout');
               }}
-              className="w-full bg-[#aa3b3b] text-white h-14 rounded-xl font-semibold text-lg shadow-lg hover:bg-[#8a2f2f] hover:shadow-xl transition-all duration-300 active:scale-[0.98] flex items-center justify-center gap-2"
+              className="w-full bg-[#aa3b3b] text-white h-14 rounded-xl font-semibold text-lg shadow-lg hover:bg-[#8a2f2f] hover:shadow-xl transition-all duration-300 active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer"
             >
               Order Now
               <svg
