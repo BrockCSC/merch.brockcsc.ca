@@ -15,7 +15,7 @@ interface PaymentOutput {
 }
 
 //temp variable
-const HOODIE_PRICE_IN_CENTS = 6000; // $60.00
+const HOODIE_PRICE_IN_CENTS = 4500; // $45.00
 
 export async function processPayment(
   data: paymentInput,

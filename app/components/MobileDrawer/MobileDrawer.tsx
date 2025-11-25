@@ -53,14 +53,14 @@ export const MobileDrawer = ({
             drag="y"
             dragControls={controls}
             onDragEnd={() => {
-              if (y.get() <= -100) {
+              if (y.get() >= 100) {
                 handleClose();
               }
             }}
             dragListener={false}
             dragConstraints={{ top: 0, bottom: 0.5 }}
           >
-            <div className="absolute left-0 right-0 bottom-0 z-10 flex justify-center bg-white p-4">
+            <div className="absolute left-0 right-0 top-0 z-10 flex justify-center bg-white p-4">
               <button
                 onPointerDown={(e) => {
                   controls.start(e);

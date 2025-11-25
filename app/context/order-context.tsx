@@ -3,6 +3,7 @@ import { createContext, useContext, useState, type ReactNode } from 'react';
 export type OrderItem = {
   color: string;
   size: string;
+  imageIndex: number;
 };
 
 type OrderContextType = {

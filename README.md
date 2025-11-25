@@ -101,7 +101,7 @@ export default function Home() {
 ```typescript
 // Stripe payment intent creation
 const paymentIntent = await stripe.paymentIntents.create({
-  amount: 6000, // $60.00 CAD
+  amount: 4500, // $45.00 CAD
   currency: 'cad',
   customer: customer.id,
   metadata: { name, email, studentId, color, size },

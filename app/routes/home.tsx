@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import type { Route } from './+types/home';
 import { SizeGuideModal } from '~/components/size-guide-modal';
 import { useOrder } from '~/context/order-context';
+import { animate } from 'motion';
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -17,7 +18,7 @@ export function meta({}: Route.MetaArgs) {
 
 const PRODUCT = {
   name: 'BrockCSC Hoodie',
-  price: 50.0,
+  price: 45.0,
   description:
     'The official hoodie of the Brock Computer Science Club. Made with premium heavyweight cotton for maximum comfort during those late-night coding sessions. Features a modern fit and durable embroidery.',
   colors: [
@@ -53,6 +54,53 @@ export default function Home() {
     setCurrentImageIndex(0);
   };
 
+  // Auto-swap images every 5 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % 2);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Landing animations
+  useEffect(() => {
+    animate(
+      '.image-container',
+      { opacity: [0, 1], scale: [0.9, 1] },
+      { duration: 0.8, delay: 0.1 }
+    );
+    animate(
+      '.title',
+      { opacity: [0, 1], y: [20, 0] },
+      { duration: 0.8, delay: 0.2 }
+    );
+    animate(
+      '.price',
+      { opacity: [0, 1], y: [20, 0] },
+      { duration: 0.8, delay: 0.4 }
+    );
+    animate(
+      '.description',
+      { opacity: [0, 1], y: [20, 0] },
+      { duration: 0.8, delay: 0.6 }
+    );
+    animate(
+      '.color-selector',
+      { opacity: [0, 1], y: [20, 0] },
+      { duration: 0.8, delay: 0.8 }
+    );
+    animate(
+      '.size-selector',
+      { opacity: [0, 1], y: [20, 0] },
+      { duration: 0.8, delay: 1.0 }
+    );
+    animate(
+      '.actions',
+      { opacity: [0, 1], y: [20, 0] },
+      { duration: 0.8, delay: 1.2 }
+    );
+  }, []);
+
   const currentImages = [
     PRODUCT.images[selectedColor].m,
     PRODUCT.images[selectedColor].f,
@@ -65,14 +113,27 @@ export default function Home() {
         onClose={() => setIsSizeGuideOpen(false)}
       />
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center w-full">
         {/* Image Section */}
-        <div className="flex flex-col gap-4">
-          <div className="relative group rounded-3xl overflow-hidden bg-gray-50 aspect-square lg:aspect-[4/5] flex items-center justify-center shadow-sm">
+        <div className="image-container flex flex-col gap-4">
+          <div className="relative group rounded-3xl overflow-hidden bg-gray-50 aspect-square md:aspect-[4/5] flex items-center justify-center shadow-sm">
             <img
-              src={currentImages[currentImageIndex]}
-              alt={`${PRODUCT.name} in ${selectedColor}`}
-              className="w-full h-full object-contain object-center transition-all duration-500 group-hover:scale-105"
+              src={currentImages[0]}
+              alt={`${PRODUCT.name} in ${selectedColor} view 1`}
+              className="absolute inset-0 w-full h-full object-contain object-center transition-all duration-500 group-hover:scale-105"
+              style={{
+                opacity: currentImageIndex === 0 ? 1 : 0,
+                transition: 'opacity 1s',
+              }}
+            />
+            <img
+              src={currentImages[1]}
+              alt={`${PRODUCT.name} in ${selectedColor} view 2`}
+              className="absolute inset-0 w-full h-full object-contain object-center transition-all duration-500 group-hover:scale-105"
+              style={{
+                opacity: currentImageIndex === 1 ? 1 : 0,
+                transition: 'opacity 1s',
+              }}
             />
           </div>
 
@@ -101,20 +162,20 @@ export default function Home() {
         {/* Details Section */}
         <div className="flex flex-col space-y-8 px-4 lg:px-0">
           <div className="space-y-4">
-            <h1 className="text-4xl lg:text-5xl font-bold tracking-tight text-gray-900">
+            <h1 className="title text-4xl md:text-5xl font-bold tracking-tight text-gray-900">
               {PRODUCT.name}
             </h1>
-            <p className="text-2xl font-medium text-[#aa3b3b]">
+            <p className="price text-2xl font-medium text-[#aa3b3b]">
               ${PRODUCT.price.toFixed(2)}
             </p>
-            <p className="text-lg text-gray-600 leading-relaxed max-w-md">
+            <p className="description text-lg text-gray-600 leading-relaxed max-w-md">
               {PRODUCT.description}
             </p>
           </div>
 
           <div className="space-y-6">
             {/* Color Selector */}
-            <div className="space-y-3">
+            <div className="color-selector space-y-3">
               <div className="flex items-center">
                 <span className="text-sm font-medium text-gray-900 uppercase tracking-wider">
                   Color
@@ -127,10 +188,10 @@ export default function Home() {
                     onClick={() =>
                       handleColorChange(color.id as 'white' | 'black')
                     }
-                    className={`w-12 h-12 rounded-full border-2 transition-all duration-300 focus:outline-none ring-2 ring-offset-2 ${color.class} ${
+                    className={`w-12 h-12 rounded-full border-2 transition-all duration-300 focus:outline-none ring-2 ring-offset-2 cursor-pointer ${color.class} ${
                       selectedColor === color.id
                         ? 'ring-[#aa3b3b] scale-110'
-                        : 'ring-transparent hover:scale-105'
+                        : 'ring-transparent hover:scale-105 hover:ring-[#aa3b3b]/50'
                     }`}
                     aria-label={`Select ${color.name}`}
                   />
@@ -139,14 +200,14 @@ export default function Home() {
             </div>
 
             {/* Size Selector */}
-            <div className="space-y-3">
+            <div className="size-selector space-y-3">
               <div className="flex justify-between items-center max-w-md">
                 <span className="text-sm font-medium text-gray-900 uppercase tracking-wider">
                   Size
                 </span>
                 <button
                   onClick={() => setIsSizeGuideOpen(true)}
-                  className="text-sm text-gray-500 underline hover:text-[#aa3b3b] transition-colors"
+                  className="text-sm text-gray-500 underline hover:text-[#aa3b3b] transition-colors cursor-pointer"
                 >
                   Size Guide
                 </button>
@@ -156,10 +217,10 @@ export default function Home() {
                   <button
                     key={size}
                     onClick={() => setSelectedSize(size)}
-                    className={`h-12 rounded-xl border font-medium text-sm transition-all duration-200 ${
+                    className={`h-12 rounded-xl border font-medium text-sm transition-all duration-200 cursor-pointer ${
                       selectedSize === size
                         ? 'border-[#aa3b3b] bg-[#aa3b3b] text-white shadow-md'
-                        : 'border-gray-200 text-gray-900 hover:border-[#aa3b3b]'
+                        : 'border-gray-200 text-gray-900 hover:border-[#aa3b3b] hover:bg-[#aa3b3b]/10'
                     }`}
                   >
                     {size}
@@ -170,16 +231,17 @@ export default function Home() {
           </div>
 
           {/* Actions */}
-          <div className="pt-6 max-w-md">
+          <div className="actions pt-6 max-w-md">
             <button
               onClick={() => {
                 setOrderItem({
                   color: selectedColor,
                   size: selectedSize,
+                  imageIndex: currentImageIndex,
                 });
                 navigate('/checkout');
               }}
-              className="w-full bg-[#aa3b3b] text-white h-14 rounded-xl font-semibold text-lg shadow-lg hover:bg-[#8a2f2f] hover:shadow-xl transition-all duration-300 active:scale-[0.98] flex items-center justify-center gap-2"
+              className="w-full bg-[#aa3b3b] text-white h-14 rounded-xl font-semibold text-lg shadow-lg hover:bg-[#8a2f2f] hover:shadow-xl transition-all duration-300 active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer"
             >
               Order Now
               <svg
