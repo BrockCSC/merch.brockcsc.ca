@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import type { Route } from './+types/home';
 import { SizeGuideModal } from '~/components/size-guide-modal';
 import { useOrder } from '~/context/order-context';
+import { animate } from 'motion';
 
 export function meta({}: Route.MetaArgs) {
   return [
