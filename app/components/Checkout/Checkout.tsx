@@ -33,8 +33,8 @@ export default function Checkout() {
       },
     });
 
-    if (error.type === "card_error" || error.type === "validation_error") {
-      setMessage(error.message ?? "Something went wrong");
+    if (error.type === 'card_error' || error.type === 'validation_error') {
+      setMessage(error.message ?? 'Something went wrong');
     } else {
     }
 

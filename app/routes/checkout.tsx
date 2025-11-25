@@ -1,23 +1,23 @@
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
-import Checkout from "~/components/Checkout/Checkout";
-import { MdKeyboardArrowUp } from "react-icons/md";
-import { MobileDrawer } from "~/components/MobileDrawer/MobileDrawer";
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+import Checkout from '~/components/Checkout/Checkout';
+import { MdKeyboardArrowUp } from 'react-icons/md';
+import { MobileDrawer } from '~/components/MobileDrawer/MobileDrawer';
 
-import { useState, useEffect } from "react";
-import { useOrder } from "~/context/order-context";
+import { useState, useEffect } from 'react';
+import { useOrder } from '~/context/order-context';
 import { animate } from 'motion';
 
 const stripePromise = loadStripe(
-  "pk_test_51SPYUmDKE3K4RyLKzWjFmmmg21dXrHI29a7i1WqZ77MZVkKedmLDL82bLZ9Kh5btk57s9AMZcNadITQkZhYvyr9200YOB8snWx"
+  'pk_test_51SPYUmDKE3K4RyLKzWjFmmmg21dXrHI29a7i1WqZ77MZVkKedmLDL82bLZ9Kh5btk57s9AMZcNadITQkZhYvyr9200YOB8snWx'
 );
 
 export default function CheckoutRoute() {
   const { orderItem } = useOrder();
   const [open, setOpen] = useState(false);
-  const [name, setName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [stdNum, setStdNum] = useState<string>("");
+  const [name, setName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [stdNum, setStdNum] = useState<string>('');
 
   const [clientSecret, setClientSecret] = useState<string | null>(null);
 
@@ -41,10 +41,10 @@ export default function CheckoutRoute() {
 
     try {
       const response = await fetch(
-        "https://merch-backend.brockcsc.workers.dev/",
+        'https://merch-backend.brockcsc.workers.dev/',
         {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload),
         }
       );
@@ -52,14 +52,26 @@ export default function CheckoutRoute() {
       const data = await response.json();
       setClientSecret(data.clientSecret ?? null);
     } catch (err) {
-      console.error("Failed to create payment intent", err);
+      console.error('Failed to create payment intent', err);
     }
   };
 
   useEffect(() => {
-    animate('.checkout-title', { opacity: [0, 1], y: [20, 0] }, { duration: 0.8, delay: 0.2 });
-    animate('.contact-info', { opacity: [0, 1], y: [20, 0] }, { duration: 0.8, delay: 0.4 });
-    animate('.order-summary', { opacity: [0, 1], y: [20, 0] }, { duration: 0.8, delay: 0.6 });
+    animate(
+      '.checkout-title',
+      { opacity: [0, 1], y: [20, 0] },
+      { duration: 0.8, delay: 0.2 }
+    );
+    animate(
+      '.contact-info',
+      { opacity: [0, 1], y: [20, 0] },
+      { duration: 0.8, delay: 0.4 }
+    );
+    animate(
+      '.order-summary',
+      { opacity: [0, 1], y: [20, 0] },
+      { duration: 0.8, delay: 0.6 }
+    );
   }, []);
 
   return (
@@ -80,7 +92,9 @@ export default function CheckoutRoute() {
               <h1 className="text-white">$45.00</h1>
             </div>
 
-            <h1 className="text-[#aa3b3b] font-bold mb-2">Contact Information</h1>
+            <h1 className="text-[#aa3b3b] font-bold mb-2">
+              Contact Information
+            </h1>
 
             <input
               className="peer shadow appearance-none border rounded w-full py-2 px-3 text-grey"
@@ -137,8 +151,14 @@ export default function CheckoutRoute() {
               <div className="flex flex-col justify-between h-full">
                 <div className="w-full flex justify-around items-center">
                   <div>
-                    <h1><span className="font-bold">Color:</span> {orderItem.color.charAt(0).toUpperCase() + orderItem.color.slice(1)}</h1>
-                    <h3><span className="font-bold">Size:</span> {orderItem.size}</h3>
+                    <h1>
+                      <span className="font-bold">Color:</span>{' '}
+                      {orderItem.color.charAt(0).toUpperCase() +
+                        orderItem.color.slice(1)}
+                    </h1>
+                    <h3>
+                      <span className="font-bold">Size:</span> {orderItem.size}
+                    </h3>
                   </div>
                   <h1>$45.00</h1>
                 </div>
@@ -159,10 +179,20 @@ export default function CheckoutRoute() {
           <h1 className="text-4xl my-4 text-center">Order Summary</h1>
           <div className="flex flex-col justify-between h-full">
             <div className="w-full flex justify-around items-center">
-              <img src={`/merch/${orderItem.color}-${orderItem.imageIndex === 0 ? 'm' : 'f'}.png`} alt="Selected hoodie" className="w-16 h-16 rounded-4xl object-cover" />
+              <img
+                src={`/merch/${orderItem.color}-${orderItem.imageIndex === 0 ? 'm' : 'f'}.png`}
+                alt="Selected hoodie"
+                className="w-16 h-16 rounded-4xl object-cover"
+              />
               <div>
-                <h1><span className="font-bold">Color:</span> {orderItem.color.charAt(0).toUpperCase() + orderItem.color.slice(1)}</h1>
-                <h3><span className="font-bold">Size:</span> {orderItem.size}</h3>
+                <h1>
+                  <span className="font-bold">Color:</span>{' '}
+                  {orderItem.color.charAt(0).toUpperCase() +
+                    orderItem.color.slice(1)}
+                </h1>
+                <h3>
+                  <span className="font-bold">Size:</span> {orderItem.size}
+                </h3>
               </div>
               <h1>$45.00</h1>
             </div>

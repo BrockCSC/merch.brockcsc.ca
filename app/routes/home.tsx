@@ -64,13 +64,41 @@ export default function Home() {
 
   // Landing animations
   useEffect(() => {
-    animate('.image-container', { opacity: [0, 1], scale: [0.9, 1] }, { duration: 0.8, delay: 0.1 });
-    animate('.title', { opacity: [0, 1], y: [20, 0] }, { duration: 0.8, delay: 0.2 });
-    animate('.price', { opacity: [0, 1], y: [20, 0] }, { duration: 0.8, delay: 0.4 });
-    animate('.description', { opacity: [0, 1], y: [20, 0] }, { duration: 0.8, delay: 0.6 });
-    animate('.color-selector', { opacity: [0, 1], y: [20, 0] }, { duration: 0.8, delay: 0.8 });
-    animate('.size-selector', { opacity: [0, 1], y: [20, 0] }, { duration: 0.8, delay: 1.0 });
-    animate('.actions', { opacity: [0, 1], y: [20, 0] }, { duration: 0.8, delay: 1.2 });
+    animate(
+      '.image-container',
+      { opacity: [0, 1], scale: [0.9, 1] },
+      { duration: 0.8, delay: 0.1 }
+    );
+    animate(
+      '.title',
+      { opacity: [0, 1], y: [20, 0] },
+      { duration: 0.8, delay: 0.2 }
+    );
+    animate(
+      '.price',
+      { opacity: [0, 1], y: [20, 0] },
+      { duration: 0.8, delay: 0.4 }
+    );
+    animate(
+      '.description',
+      { opacity: [0, 1], y: [20, 0] },
+      { duration: 0.8, delay: 0.6 }
+    );
+    animate(
+      '.color-selector',
+      { opacity: [0, 1], y: [20, 0] },
+      { duration: 0.8, delay: 0.8 }
+    );
+    animate(
+      '.size-selector',
+      { opacity: [0, 1], y: [20, 0] },
+      { duration: 0.8, delay: 1.0 }
+    );
+    animate(
+      '.actions',
+      { opacity: [0, 1], y: [20, 0] },
+      { duration: 0.8, delay: 1.2 }
+    );
   }, []);
 
   const currentImages = [
@@ -93,13 +121,19 @@ export default function Home() {
               src={currentImages[0]}
               alt={`${PRODUCT.name} in ${selectedColor} view 1`}
               className="absolute inset-0 w-full h-full object-contain object-center transition-all duration-500 group-hover:scale-105"
-              style={{ opacity: currentImageIndex === 0 ? 1 : 0, transition: 'opacity 1s' }}
+              style={{
+                opacity: currentImageIndex === 0 ? 1 : 0,
+                transition: 'opacity 1s',
+              }}
             />
             <img
               src={currentImages[1]}
               alt={`${PRODUCT.name} in ${selectedColor} view 2`}
               className="absolute inset-0 w-full h-full object-contain object-center transition-all duration-500 group-hover:scale-105"
-              style={{ opacity: currentImageIndex === 1 ? 1 : 0, transition: 'opacity 1s' }}
+              style={{
+                opacity: currentImageIndex === 1 ? 1 : 0,
+                transition: 'opacity 1s',
+              }}
             />
           </div>
 
