@@ -1,8 +1,9 @@
-import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
-import Checkout from '~/components/Checkout/Checkout';
-import { useEffect, useState } from 'react';
-import { data } from 'react-router';
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import Checkout from "~/components/Checkout/Checkout";
+import { RiDeleteBin5Line } from "react-icons/ri";
+import { MdKeyboardArrowUp } from "react-icons/md";
+import { MobileDrawer } from "~/components/MobileDrawer/MobileDrawer";
 
 import { useState } from "react";
 import { useOrder } from "~/context/order-context";
@@ -10,34 +11,58 @@ import { useOrder } from "~/context/order-context";
 const stripePromise = loadStripe(
   "pk_test_51SPYUmDKE3K4RyLKzWjFmmmg21dXrHI29a7i1WqZ77MZVkKedmLDL82bLZ9Kh5btk57s9AMZcNadITQkZhYvyr9200YOB8snWx"
 );
+
 export default function CheckoutRoute() {
-  const stripePromise = loadStripe(
-    'pk_live_51SPYUmDKE3K4RyLK3etexVTMhi70dd9zd3q5IIEobhRvFU8qTjSgGB5w2C7cm4sq5zhohbUufsYB14z3PMl7Gt2Q00G61mdg2k'
-  );
+  const { orderItem } = useOrder();
+  const [open, setOpen] = useState(false);
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [stdNum, setStdNum] = useState<string>("");
 
   const [clientSecret, setClientSecret] = useState<string | null>(null);
 
-  useEffect(() => {
-    fetch('https://merch-backend.brockcsc.workers.dev/', {
-      method: 'POST',
-    })
-      .then((response) => response.json())
-      .then((data) => setClientSecret(data.clientSecret));
-    console.log(data);
-  }, []);
-  console.log(clientSecret);
-  //if (!clientSecret) return <p>Loading payment info...</p>;
+  if (!orderItem) return <p>No order found. Please go back</p>;
 
-    setTimeout(() => {
-      console.log(data.clientSecret);
-      console.log(clientSecret);
-    }, 10000);
+  const handleSubmit = async (e: React.MouseEvent | React.FormEvent) => {
+    e.preventDefault?.();
+
+    if (!name || !email || !stdNum || !orderItem) {
+      // simple client-side validation
+      return;
+    }
+
+    const payload = {
+      name,
+      studentId: parseInt(stdNum, 10),
+      email,
+      color: orderItem.color,
+      size: orderItem.size,
+    };
+
+    try {
+      const response = await fetch(
+        "https://merch-backend.brockcsc.workers.dev/",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        }
+      );
+
+      const data = await response.json();
+      setClientSecret(data.clientSecret ?? null);
+    } catch (err) {
+      console.error("Failed to create payment intent", err);
+    }
   };
+
   return (
     <div className="w-full md:flex spa md:max-w-full md:gap-10 md:justify-center ">
       <div className="w-full flex flex-col justify-center">
         <h1 className="text-4xl my-4">Checkout</h1>
-        <form id="payment-form" onSubmit={handleSubmit}>
+
+        {/* Use div instead of form to avoid nested-form/hydration issues */}
+        <div id="payment-section">
           <div className="mb-4 flex flex-col gap-2">
             <div className="flex justify-between relative left-0.5 right-0.5 ml-[-13vw] w-screen bg-[#aa3b3b] px-12 py-4 md:hidden">
               <button
@@ -48,18 +73,19 @@ export default function CheckoutRoute() {
               </button>
               <h1 className="text-white">$60.00</h1>
             </div>
-            <h1 className="text-[#aa3b3b] font-bold mb-2">
-              Contact Information
-            </h1>
+
+            <h1 className="text-[#aa3b3b] font-bold mb-2">Contact Information</h1>
+
             <input
               className="peer shadow appearance-none border rounded w-full py-2 px-3 text-grey"
               required
-              type="text"
+              type="email"
               id="email"
               value={email}
               placeholder="Email"
               onChange={(e) => setEmail(e.target.value)}
-            ></input>
+            />
+
             <input
               className="peer shadow appearance-none border rounded w-full py-2 px-3 text-grey"
               required
@@ -68,7 +94,8 @@ export default function CheckoutRoute() {
               value={name}
               placeholder="Name"
               onChange={(e) => setName(e.target.value)}
-            ></input>
+            />
+
             <input
               className="peer shadow appearance-none border rounded w-full py-2 px-3 text-grey"
               required
@@ -77,27 +104,26 @@ export default function CheckoutRoute() {
               value={stdNum}
               placeholder="Student Number"
               onChange={(e) => setStdNum(e.target.value)}
-            ></input>
+            />
+
             {!clientSecret && (
               <button
-                type="submit"
+                type="button"
+                onClick={handleSubmit}
                 className="w-full text-white bg-[#aa3b3b] p-4 rounded-3xl cursor-pointer"
               >
                 Complete Order
               </button>
             )}
           </div>
-        </form>
-        {clientSecret && (
-          <Elements
-            stripe={stripePromise}
-            options={{
-              clientSecret,
-            }}
-          >
-            <Checkout />
-          </Elements>
-        )}
+
+          {clientSecret && (
+            <Elements stripe={stripePromise} options={{ clientSecret }}>
+              <Checkout />
+            </Elements>
+          )}
+        </div>
+
         <MobileDrawer open={open} setOpen={setOpen}>
           <div className="h-full">
             <div className="flex flex-col w-full h-full">
@@ -124,6 +150,7 @@ export default function CheckoutRoute() {
           </div>
         </MobileDrawer>
       </div>
+
       <div className="hidden md:bg-slate-50 md:w-[60%] md:flex md:flex-col md:items-center ">
         <div className="flex flex-col w-full h-full">
           <h1 className="text-4xl my-4 text-center">Order Summary</h1>
@@ -132,7 +159,7 @@ export default function CheckoutRoute() {
               <button className="cursor-hover">
                 <RiDeleteBin5Line size={24} />
               </button>
-              <img className="bg-gray-500 rounded-4xl p-6"></img>
+              <img className="bg-gray-500 rounded-4xl p-6" alt="" />
               <div>
                 <h1>Item 1</h1>
                 <h3>Size: M</h3>
