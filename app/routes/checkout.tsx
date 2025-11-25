@@ -7,8 +7,39 @@ import { MobileDrawer } from '~/components/MobileDrawer/MobileDrawer';
 import { useState, useEffect } from 'react';
 import { useOrder } from '~/context/order-context';
 import { animate } from 'motion';
+import type { Route } from './+types/checkout';
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
+
+export function meta({}: Route.MetaArgs) {
+  const baseUrl = 'https://merch.brockcsc.ca';
+
+  return [
+    { title: 'Checkout | BrockCSC Official Merch' },
+    {
+      name: 'description',
+      content:
+        'Complete your BrockCSC merchandise order. Secure checkout with Stripe payment processing. Free campus pickup available.',
+    },
+    {
+      name: 'keywords',
+      content:
+        'checkout, BrockCSC, merchandise, payment, secure checkout, Brock University, student merchandise',
+    },
+    { name: 'robots', content: 'noindex, nofollow' }, // Don't index checkout pages
+    { rel: 'canonical', href: `${baseUrl}/checkout` },
+
+    // Open Graph
+    { property: 'og:type', content: 'website' },
+    { property: 'og:url', content: `${baseUrl}/checkout` },
+    { property: 'og:title', content: 'Checkout | BrockCSC Official Merch' },
+    {
+      property: 'og:description',
+      content:
+        'Complete your BrockCSC merchandise order with secure payment processing.',
+    },
+  ];
+}
 
 export default function CheckoutRoute() {
   const { orderItem } = useOrder();
@@ -73,84 +104,146 @@ export default function CheckoutRoute() {
   }, []);
 
   return (
-    <div className="w-full md:flex spa md:max-w-full md:gap-10 md:justify-center ">
-      <div className="w-full flex flex-col justify-center">
-        <h1 className="checkout-title text-4xl my-4">Checkout</h1>
+    <>
+      {/* Breadcrumb structured data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              {
+                '@type': 'ListItem',
+                position: 1,
+                name: 'Home',
+                item: window.location.origin,
+              },
+              {
+                '@type': 'ListItem',
+                position: 2,
+                name: 'Checkout',
+                item: window.location.href,
+              },
+            ],
+          }),
+        }}
+      />
 
-        {/* Use div instead of form to avoid nested-form/hydration issues */}
-        <div id="payment-section">
-          <div className="contact-info mb-4 flex flex-col gap-2">
-            <div className="flex justify-between relative left-0.5 right-0.5 ml-[-13vw] w-screen bg-[#aa3b3b] px-12 py-4 md:hidden">
-              <button
-                onClick={() => setOpen(true)}
-                className="flex items-center text-white cursor-pointer md:hidden"
-              >
-                Order Summary <MdKeyboardArrowUp />
-              </button>
-              <h1 className="text-white">$45.00</h1>
+      <div>
+        <div className="w-full md:flex spa md:max-w-full md:gap-10 md:justify-center ">
+          <div className="w-full flex flex-col justify-center">
+            <h1 className="checkout-title text-4xl my-4">Checkout</h1>
+
+            {/* Use div instead of form to avoid nested-form/hydration issues */}
+            <div id="payment-section">
+              <div className="contact-info mb-4 flex flex-col gap-2">
+                <div className="flex justify-between relative left-0.5 right-0.5 ml-[-13vw] w-screen bg-[#aa3b3b] px-12 py-4 md:hidden">
+                  <button
+                    onClick={() => setOpen(true)}
+                    className="flex items-center text-white cursor-pointer md:hidden"
+                  >
+                    Order Summary <MdKeyboardArrowUp />
+                  </button>
+                  <h1 className="text-white">$45.00</h1>
+                </div>
+
+                <h1 className="text-[#aa3b3b] font-bold mb-2">
+                  Contact Information
+                </h1>
+
+                <input
+                  className="peer shadow appearance-none border rounded w-full py-2 px-3 text-grey disabled:opacity-50 disabled:cursor-not-allowed"
+                  required
+                  type="email"
+                  id="email"
+                  value={email}
+                  placeholder="Email"
+                  onChange={(e) => setEmail(e.target.value)}
+                  disabled={!!clientSecret}
+                />
+
+                <input
+                  className="peer shadow appearance-none border rounded w-full py-2 px-3 text-grey disabled:opacity-50 disabled:cursor-not-allowed"
+                  required
+                  type="text"
+                  id="name"
+                  value={name}
+                  placeholder="Name"
+                  onChange={(e) => setName(e.target.value)}
+                  disabled={!!clientSecret}
+                />
+
+                <input
+                  className="peer shadow appearance-none border rounded w-full py-2 px-3 text-grey disabled:opacity-50 disabled:cursor-not-allowed"
+                  required
+                  type="text"
+                  id="stdNum"
+                  value={stdNum}
+                  placeholder="Student Number"
+                  onChange={(e) => setStdNum(e.target.value)}
+                  disabled={!!clientSecret}
+                />
+
+                {!clientSecret && (
+                  <button
+                    type="button"
+                    onClick={handleSubmit}
+                    className="w-full text-white bg-[#aa3b3b] p-4 rounded-3xl cursor-pointer"
+                  >
+                    Complete Order
+                  </button>
+                )}
+              </div>
+
+              {clientSecret && (
+                <Elements stripe={stripePromise} options={{ clientSecret }}>
+                  <Checkout />
+                </Elements>
+              )}
             </div>
 
-            <h1 className="text-[#aa3b3b] font-bold mb-2">
-              Contact Information
-            </h1>
-
-            <input
-              className="peer shadow appearance-none border rounded w-full py-2 px-3 text-grey disabled:opacity-50 disabled:cursor-not-allowed"
-              required
-              type="email"
-              id="email"
-              value={email}
-              placeholder="Email"
-              onChange={(e) => setEmail(e.target.value)}
-              disabled={!!clientSecret}
-            />
-
-            <input
-              className="peer shadow appearance-none border rounded w-full py-2 px-3 text-grey disabled:opacity-50 disabled:cursor-not-allowed"
-              required
-              type="text"
-              id="name"
-              value={name}
-              placeholder="Name"
-              onChange={(e) => setName(e.target.value)}
-              disabled={!!clientSecret}
-            />
-
-            <input
-              className="peer shadow appearance-none border rounded w-full py-2 px-3 text-grey disabled:opacity-50 disabled:cursor-not-allowed"
-              required
-              type="text"
-              id="stdNum"
-              value={stdNum}
-              placeholder="Student Number"
-              onChange={(e) => setStdNum(e.target.value)}
-              disabled={!!clientSecret}
-            />
-
-            {!clientSecret && (
-              <button
-                type="button"
-                onClick={handleSubmit}
-                className="w-full text-white bg-[#aa3b3b] p-4 rounded-3xl cursor-pointer"
-              >
-                Complete Order
-              </button>
-            )}
+            <MobileDrawer open={open} setOpen={setOpen}>
+              <div className="h-full">
+                <div className="flex flex-col w-full h-full">
+                  <h1 className="text-4xl my-4 text-center">Order Summary</h1>
+                  <div className="flex flex-col justify-between h-full">
+                    <div className="w-full flex justify-around items-center">
+                      <div>
+                        <h1>
+                          <span className="font-bold">Color:</span>{' '}
+                          {orderItem.color.charAt(0).toUpperCase() +
+                            orderItem.color.slice(1)}
+                        </h1>
+                        <h3>
+                          <span className="font-bold">Size:</span>{' '}
+                          {orderItem.size}
+                        </h3>
+                      </div>
+                      <h1>$45.00</h1>
+                    </div>
+                    <div className="flex flex-col justify-end px-4 pb-6 gap-2">
+                      <div className="flex justify-between">
+                        <h1>Subtotal:</h1>
+                        <div>45.00</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </MobileDrawer>
           </div>
 
-          {clientSecret && (
-            <Elements stripe={stripePromise} options={{ clientSecret }}>
-              <Checkout />
-            </Elements>
-          )}
-        </div>
-
-        <MobileDrawer open={open} setOpen={setOpen}>
-          <div className="h-full">
+          <div className="order-summary hidden md:bg-slate-50 md:w-[60%] md:flex md:flex-col md:items-center ">
             <div className="flex flex-col w-full h-full">
               <h1 className="text-4xl my-4 text-center">Order Summary</h1>
               <div className="flex flex-col justify-between h-full">
                 <div className="w-full flex justify-around items-center">
+                  <img
+                    src={`/merch/${orderItem.color}-${orderItem.imageIndex === 0 ? 'm' : 'f'}.png`}
+                    alt="Selected hoodie"
+                    className="w-16 h-16 rounded-4xl object-cover"
+                  />
                   <div>
                     <h1>
                       <span className="font-bold">Color:</span>{' '}
@@ -165,47 +258,15 @@ export default function CheckoutRoute() {
                 </div>
                 <div className="flex flex-col justify-end px-4 pb-6 gap-2">
                   <div className="flex justify-between">
-                    <h1>Subtotal:</h1>
-                    <div>45.00</div>
+                    <h1>Subtotal</h1>
+                    <div>$45.00</div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </MobileDrawer>
-      </div>
-
-      <div className="order-summary hidden md:bg-slate-50 md:w-[60%] md:flex md:flex-col md:items-center ">
-        <div className="flex flex-col w-full h-full">
-          <h1 className="text-4xl my-4 text-center">Order Summary</h1>
-          <div className="flex flex-col justify-between h-full">
-            <div className="w-full flex justify-around items-center">
-              <img
-                src={`/merch/${orderItem.color}-${orderItem.imageIndex === 0 ? 'm' : 'f'}.png`}
-                alt="Selected hoodie"
-                className="w-16 h-16 rounded-4xl object-cover"
-              />
-              <div>
-                <h1>
-                  <span className="font-bold">Color:</span>{' '}
-                  {orderItem.color.charAt(0).toUpperCase() +
-                    orderItem.color.slice(1)}
-                </h1>
-                <h3>
-                  <span className="font-bold">Size:</span> {orderItem.size}
-                </h3>
-              </div>
-              <h1>$45.00</h1>
-            </div>
-            <div className="flex flex-col justify-end px-4 pb-6 gap-2">
-              <div className="flex justify-between">
-                <h1>Subtotal</h1>
-                <div>$45.00</div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
