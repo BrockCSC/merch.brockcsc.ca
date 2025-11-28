@@ -1,12 +1,16 @@
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-import Checkout from '~/components/Checkout/Checkout';
+import Checkout from '~/components/Stripe/StripeForm';
+
 import { MdKeyboardArrowUp } from 'react-icons/md';
 import { MobileDrawer } from '~/components/MobileDrawer/MobileDrawer';
 
-import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router';
+import { RiShoppingBagLine } from 'react-icons/ri';
+
+import { useState } from 'react';
 import { useOrder } from '~/context/order-context';
-import { animate } from 'motion';
+import { SummaryContent } from '~/components/SummaryContent/SummaryContent';
 
 const stripePromise = loadStripe(
   'pk_test_51SPYUmDKE3K4RyLKzWjFmmmg21dXrHI29a7i1WqZ77MZVkKedmLDL82bLZ9Kh5btk57s9AMZcNadITQkZhYvyr9200YOB8snWx'
@@ -14,26 +18,49 @@ const stripePromise = loadStripe(
 
 export default function CheckoutRoute() {
   const { orderItem } = useOrder();
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  const [name, setName] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [stdNum, setStdNum] = useState<string>('');
+
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [stdNum, setStdNum] = useState('');
 
   const [clientSecret, setClientSecret] = useState<string | null>(null);
 
-  if (!orderItem) return <p>No order found. Please go back</p>;
+  // 🛒 EMPTY CART STATE
+  if (!orderItem) {
+    return (
+      <div className="min-h-[calc(100vh-100px)] flex items-center justify-center px-4">
+        <div className="max-w-md w-full bg-white shadow-lg rounded-2xl p-10 text-center space-y-6 border border-gray-100">
+          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-[#aa3b3b]/10">
+            <RiShoppingBagLine className="h-10 w-10 text-[#aa3b3b]" />
+          </div>
+          <h1 className="text-3xl font-semibold text-gray-900 tracking-tight">
+            Your cart is empty
+          </h1>
+          <p className="text-gray-600 leading-relaxed max-w-sm mx-auto">
+            Please choose your hoodie first before checking out.
+          </p>
+          <button
+            onClick={() => navigate('/')}
+            className="mt-4 inline-flex items-center justify-center w-full rounded-xl bg-[#aa3b3b] px-5 py-3 text-base font-semibold text-white shadow-md hover:bg-[#8a3030] transition-all duration-200 hover:shadow-lg active:scale-[0.98]"
+          >
+            Browse Merch
+          </button>
+        </div>
+      </div>
+    );
+  }
 
-  const handleSubmit = async (e: React.MouseEvent | React.FormEvent) => {
-    e.preventDefault?.();
+  // 🧾 FORM SUBMIT
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-    if (!name || !email || !stdNum || !orderItem) {
-      // simple client-side validation
-      return;
-    }
+    if (!name || !email || !stdNum || !orderItem) return;
 
     const payload = {
       name,
-      studentId: parseInt(stdNum, 10),
+      studentId: parseInt(stdNum),
       email,
       color: orderItem.color,
       size: orderItem.size,
@@ -49,161 +76,101 @@ export default function CheckoutRoute() {
         }
       );
 
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => null);
+        console.error('API Error:', errorData || response.statusText);
+        alert('something went wrong while creating payment. Please try again.');
+      }
+
       const data = await response.json();
-      setClientSecret(data.clientSecret ?? null);
+      setClientSecret(data.clientSecret);
     } catch (err) {
-      console.error('Failed to create payment intent', err);
+      console.error('Network or unexpected error:', err);
+      alert('Network error - please check your connection and try again');
     }
   };
 
-  useEffect(() => {
-    animate(
-      '.checkout-title',
-      { opacity: [0, 1], y: [20, 0] },
-      { duration: 0.8, delay: 0.2 }
-    );
-    animate(
-      '.contact-info',
-      { opacity: [0, 1], y: [20, 0] },
-      { duration: 0.8, delay: 0.4 }
-    );
-    animate(
-      '.order-summary',
-      { opacity: [0, 1], y: [20, 0] },
-      { duration: 0.8, delay: 0.6 }
-    );
-  }, []);
-
   return (
-    <div className="w-full md:flex spa md:max-w-full md:gap-10 md:justify-center ">
-      <div className="w-full flex flex-col justify-center">
-        <h1 className="checkout-title text-4xl my-4">Checkout</h1>
+    <div className="w-full mx-auto md:flex md:gap-10 md:justify-center max-w-6xl p-4 md:p-0">
+      {/* LEFT SIDE — FORM */}
+      <div className="w-full flex flex-col">
+        <h1 className="text-4xl font-bold text-gray-900 mt-4">Checkout</h1>
+        <p className="text-gray-500 mt-1 mb-6">Complete your purchase below.</p>
+        <div className="fixed bottom-0 left-0 right-0 z-20 ml-[-13vw] md:hidden bg-white shadow-[0_-4px_20px_rgba(0,0,0,0.05)]">
+          <button
+            onClick={() => setOpen(true)}
+            className="w-full flex items-center  justify-center pl-12 py-4 text-gray-900 active:scale-[0.98] transition cursor-pointer "
+          >
+            Order Summary{' '}
+            <MdKeyboardArrowUp className="text-xl text-[#aa3b3b]" />
+          </button>
+          <h1 className="text-white">$60.00</h1>
+        </div>
 
-        {/* Use div instead of form to avoid nested-form/hydration issues */}
-        <div id="payment-section">
-          <div className="contact-info mb-4 flex flex-col gap-2">
-            <div className="flex justify-between relative left-0.5 right-0.5 ml-[-13vw] w-screen bg-[#aa3b3b] px-12 py-4 md:hidden">
-              <button
-                onClick={() => setOpen(true)}
-                className="flex items-center text-white cursor-pointer md:hidden"
-              >
-                Order Summary <MdKeyboardArrowUp />
-              </button>
-              <h1 className="text-white">$45.00</h1>
-            </div>
-
-            <h1 className="text-[#aa3b3b] font-bold mb-2">
+        <form id="payment-form" onSubmit={handleSubmit} className="space-y-6">
+          {/* Contact Info */}
+          <div className="space-y-4">
+            <h2 className="text-[#aa3b3b] font-bold text-xl">
               Contact Information
-            </h1>
+            </h2>
 
             <input
-              className="peer shadow appearance-none border rounded w-full py-2 px-3 text-grey"
+              className="shadow border border-gray-300 rounded-xl w-full py-3 px-4 focus:ring-2 focus:ring-[#aa3b3b] outline-none"
               required
               type="email"
-              id="email"
-              value={email}
               placeholder="Email"
+              value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
 
             <input
-              className="peer shadow appearance-none border rounded w-full py-2 px-3 text-grey"
+              className="shadow border border-gray-300 rounded-xl w-full py-3 px-4 focus:ring-2 focus:ring-[#aa3b3b] outline-none"
               required
               type="text"
-              id="name"
+              placeholder="Full Name"
               value={name}
-              placeholder="Name"
               onChange={(e) => setName(e.target.value)}
             />
 
             <input
-              className="peer shadow appearance-none border rounded w-full py-2 px-3 text-grey"
+              className="shadow border border-gray-300 rounded-xl w-full py-3 px-4 focus:ring-2 focus:ring-[#aa3b3b] outline-none"
               required
               type="text"
-              id="stdNum"
-              value={stdNum}
               placeholder="Student Number"
+              value={stdNum}
               onChange={(e) => setStdNum(e.target.value)}
             />
-
-            {!clientSecret && (
-              <button
-                type="button"
-                onClick={handleSubmit}
-                className="w-full text-white bg-[#aa3b3b] p-4 rounded-3xl cursor-pointer"
-              >
-                Complete Order
-              </button>
-            )}
           </div>
 
+          {/* Button before Stripe loads */}
+          {!clientSecret && (
+            <button
+              type="submit"
+              className="w-full text-white bg-[#aa3b3b] p-4 rounded-xl font-semibold shadow-md hover:bg-[#8a3030] transition"
+            >
+              Proceed to Payment
+            </button>
+          )}
+
+          {/* Stripe Payment Element */}
           {clientSecret && (
             <Elements stripe={stripePromise} options={{ clientSecret }}>
               <Checkout />
             </Elements>
           )}
-        </div>
+        </form>
 
+        {/* MOBILE DRAWER SUMMARY */}
         <MobileDrawer open={open} setOpen={setOpen}>
           <div className="h-full">
-            <div className="flex flex-col w-full h-full">
-              <h1 className="text-4xl my-4 text-center">Order Summary</h1>
-              <div className="flex flex-col justify-between h-full">
-                <div className="w-full flex justify-around items-center">
-                  <div>
-                    <h1>
-                      <span className="font-bold">Color:</span>{' '}
-                      {orderItem.color.charAt(0).toUpperCase() +
-                        orderItem.color.slice(1)}
-                    </h1>
-                    <h3>
-                      <span className="font-bold">Size:</span> {orderItem.size}
-                    </h3>
-                  </div>
-                  <h1>$45.00</h1>
-                </div>
-                <div className="flex flex-col justify-end px-4 pb-6 gap-2">
-                  <div className="flex justify-between">
-                    <h1>Subtotal:</h1>
-                    <div>45.00</div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <SummaryContent orderItem={orderItem} />
           </div>
         </MobileDrawer>
       </div>
 
-      <div className="order-summary hidden md:bg-slate-50 md:w-[60%] md:flex md:flex-col md:items-center ">
-        <div className="flex flex-col w-full h-full">
-          <h1 className="text-4xl my-4 text-center">Order Summary</h1>
-          <div className="flex flex-col justify-between h-full">
-            <div className="w-full flex justify-around items-center">
-              <img
-                src={`/merch/${orderItem.color}-${orderItem.imageIndex === 0 ? 'm' : 'f'}.png`}
-                alt="Selected hoodie"
-                className="w-16 h-16 rounded-4xl object-cover"
-              />
-              <div>
-                <h1>
-                  <span className="font-bold">Color:</span>{' '}
-                  {orderItem.color.charAt(0).toUpperCase() +
-                    orderItem.color.slice(1)}
-                </h1>
-                <h3>
-                  <span className="font-bold">Size:</span> {orderItem.size}
-                </h3>
-              </div>
-              <h1>$45.00</h1>
-            </div>
-            <div className="flex flex-col justify-end px-4 pb-6 gap-2">
-              <div className="flex justify-between">
-                <h1>Subtotal</h1>
-                <div>$45.00</div>
-              </div>
-            </div>
-          </div>
-        </div>
+      {/* RIGHT SIDE — DESKTOP SUMMARY */}
+      <div className="hidden md:block md:w-1/2">
+        <SummaryContent orderItem={orderItem} />
       </div>
     </div>
   );
