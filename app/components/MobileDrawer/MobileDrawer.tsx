@@ -19,6 +19,9 @@ export const MobileDrawer = ({
   const [drawerRef, { height }] = useMeasure();
 
   const y = useMotionValue(0);
+
+  /* Allows drawer to be dragged*/
+
   const controls = useDragControls();
 
   const handleClose = async () => {
@@ -32,7 +35,9 @@ export const MobileDrawer = ({
   };
 
   return (
+    /* Only utilized for mobile screens */
     <div>
+      {/* if open then the drawer springs up if closed then drawer disappears*/}
       {open && (
         <motion.div
           ref={scope}
