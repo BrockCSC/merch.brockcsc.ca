@@ -4,6 +4,7 @@ import type { Route } from './+types/home';
 import { SizeGuideModal } from '~/components/size-guide-modal';
 import { useOrder } from '~/context/order-context';
 import { animate } from 'motion';
+import { MERCH_SALES_OPEN } from '../../shared/merch-config';
 
 export function meta({}: Route.MetaArgs) {
   const baseUrl = 'https://merch.brockcsc.ca';
@@ -390,6 +391,8 @@ export default function Home() {
             <div className="actions pt-6 pb-8 md:pb-0 max-w-md">
               <button
                 onClick={() => {
+                  if (!MERCH_SALES_OPEN) return;
+
                   setOrderItem({
                     color: selectedColor,
                     size: selectedSize,
@@ -397,26 +400,39 @@ export default function Home() {
                   });
                   navigate('/checkout');
                 }}
-                className="w-full bg-[#aa3b3b] text-white h-14 rounded-xl font-semibold text-lg shadow-lg hover:bg-[#8a2f2f] hover:shadow-xl transition-all duration-300 active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer"
+                disabled={!MERCH_SALES_OPEN}
+                className={`w-full h-14 rounded-xl font-semibold text-lg transition-all duration-300 flex items-center justify-center gap-2 ${
+                  MERCH_SALES_OPEN
+                    ? 'bg-[#aa3b3b] text-white shadow-lg hover:bg-[#8a2f2f] hover:shadow-xl active:scale-[0.98] cursor-pointer'
+                    : 'bg-gray-300 text-gray-600 cursor-not-allowed'
+                }`}
               >
-                Order Now
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M5 12h14" />
-                  <path d="M12 5l7 7-7 7" />
-                </svg>
+                {MERCH_SALES_OPEN ? (
+                  <>
+                    Order Now
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M5 12h14" />
+                      <path d="M12 5l7 7-7 7" />
+                    </svg>
+                  </>
+                ) : (
+                  'Merch Sales Closed'
+                )}
               </button>
               <p className="mt-4 text-center text-sm text-gray-500">
-                Free pickup at Brock University campus.
+                {MERCH_SALES_OPEN
+                  ? 'Free pickup at Brock University campus.'
+                  : 'We are not accepting new merch orders at this time.'}
               </p>
             </div>
           </div>

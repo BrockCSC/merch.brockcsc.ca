@@ -3,6 +3,7 @@ import { writeOrderToDB } from './data';
 import { sendConfirmationEmail } from './mailer';
 import { type Env, Color, Size } from './types';
 import Stripe from 'stripe';
+import { MERCH_SALES_OPEN } from '../../shared/merch-config';
 
 const DISABLE_ORIGIN_CHECK = true; // ! Always keep false in production
 
@@ -92,6 +93,24 @@ export default {
         JSON.stringify({ success: false, message: 'Method Not Allowed' }),
         {
           status: 405,
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type',
+          },
+        }
+      );
+    }
+
+    if (!MERCH_SALES_OPEN) {
+      return new Response(
+        JSON.stringify({
+          success: false,
+          message: 'Merch sales are currently closed',
+        }),
+        {
+          status: 403,
           headers: {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*',
