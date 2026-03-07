@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react';
 import { useOrder } from '~/context/order-context';
 import { animate } from 'motion';
 import type { Route } from './+types/checkout';
+import { MERCH_SALES_OPEN } from '../../shared/merch-config';
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
@@ -49,8 +50,6 @@ export default function CheckoutRoute() {
   const [stdNum, setStdNum] = useState<string>('');
 
   const [clientSecret, setClientSecret] = useState<string | null>(null);
-
-  if (!orderItem) return <p>No order found. Please go back</p>;
 
   const handleSubmit = async (e: React.MouseEvent | React.FormEvent) => {
     e.preventDefault?.();
@@ -102,6 +101,29 @@ export default function CheckoutRoute() {
       { duration: 0.8, delay: 0.6 }
     );
   }, []);
+
+  if (!MERCH_SALES_OPEN) {
+    return (
+      <div className="min-h-[calc(100vh-100px)] flex items-center justify-center px-4">
+        <div className="max-w-md w-full bg-white shadow-lg rounded-2xl p-10 text-center space-y-6 border border-gray-100">
+          <h1 className="text-3xl font-semibold text-gray-900 tracking-tight">
+            Merch sales are closed
+          </h1>
+          <p className="text-gray-600 leading-relaxed max-w-sm mx-auto">
+            We are not accepting new merch orders at this time.
+          </p>
+          <a
+            href="/"
+            className="mt-4 inline-flex items-center justify-center w-full rounded-xl bg-[#aa3b3b] px-5 py-3 text-base font-semibold text-white shadow-md hover:bg-[#8a3030] transition-all duration-200 hover:shadow-lg active:scale-[0.98]"
+          >
+            Back to Merch
+          </a>
+        </div>
+      </div>
+    );
+  }
+
+  if (!orderItem) return <p>No order found. Please go back</p>;
 
   return (
     <>
